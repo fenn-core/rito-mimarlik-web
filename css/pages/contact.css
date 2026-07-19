@@ -1,0 +1,11 @@
+.form-group:has(> :is(input, select, textarea):required) > label::after,
+.option-group:has(input:required) > legend::after {
+  content: " *";
+  color: red;
+  font-weight: bold;
+}
+
+.required-fields-note-asterisk {
+color: red;
+font-weight: bold;
+}

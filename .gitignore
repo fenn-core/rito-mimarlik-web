@@ -1,0 +1,15 @@
+# Credentials 
+
+.env 
+!.env.example 
+
+
+# Build and IDE related
+
+.vscode/
+
+
+# Local files
+
+local_files/
+
