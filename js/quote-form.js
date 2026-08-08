@@ -1,5 +1,5 @@
 export function initializeQuoteForm() {
-  const form = document.querySelector("#quote-form");
+  const form = document.querySelector("#project-inquiry");
 
   if (form === null) {
     return;
@@ -38,7 +38,6 @@ export function initializeQuoteForm() {
     input.addEventListener("change", updateCustomerFields);
   });
 
-
   updateCustomerFields();
 
   const phoneInput = form.querySelector("#phone");
@@ -47,6 +46,10 @@ export function initializeQuoteForm() {
     form.querySelectorAll('input[name="contact-method"]');
 
   function updatePhoneRequirement() {
+    if (phoneInput === null) {
+      return;
+    }
+
     const selectedContactMethod =
       form.querySelector('input[name="contact-method"]:checked');
 
@@ -62,5 +65,39 @@ export function initializeQuoteForm() {
 
   updatePhoneRequirement();
 
+  const submissionStatus = form.querySelector("#submission-status");
+  const submissionTrigger = form.querySelector("[data-submission-trigger]");
 
+  function showDisabledSubmissionStatus() {
+    if (submissionStatus !== null) {
+      submissionStatus.textContent =
+        "Çevrimiçi proje talebi gönderimi henüz aktif değildir. Girdiğiniz bilgiler iletilmemiştir.";
+    }
+  }
+
+  function preventDisabledSubmission(event) {
+    if (form.dataset.submissionMode !== "disabled") {
+      return;
+    }
+
+    event.preventDefault();
+    showDisabledSubmissionStatus();
+  }
+
+  form.addEventListener("submit", preventDisabledSubmission);
+
+  submissionTrigger?.addEventListener("click", () => {
+    if (form.dataset.submissionMode !== "disabled") {
+      return;
+    }
+
+    if (typeof form.requestSubmit === "function") {
+      form.requestSubmit();
+      return;
+    }
+
+    if (form.reportValidity()) {
+      showDisabledSubmissionStatus();
+    }
+  });
 }

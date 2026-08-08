@@ -4,31 +4,241 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rito Mimarlık</title>
+  <meta name="description"
+    content="Rito Mimarlık; mimari danışmanlık, proje geliştirme, teknik koordinasyon, uygulama süreçleri ve gürültü bariyeri projeleri alanlarında hizmet verir." />
+  <title>Rito Mimarlık | Mimari Danışmanlık ve Proje Uygulama</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/pages/home.css" />
 </head>
 
 <body>
-  <header>
-    <nav class="navbar">
-      <image src="assets/branding/logo.svg" alt="logo"> </image>
+  <a class="skip-link" href="#main-content">İçeriğe geç</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="brand" href="/" aria-label="Rito Mimarlık ana sayfa">
+        <!-- TODO: doğrulanmış marka dosyasıyla değiştirilecek. -->
+        <span class="brand-name">RİTO</span>
+        <span class="brand-discipline">MİMARLIK</span>
+      </a>
 
-      <a href="index.html" class="nav-button"> Ana Sayfa </a>
-      <a href="/services/" class="nav-button"> Hizmetler </a>
-      <a href="/projects/" class="nav-button"> Projeler </a>
-      <a href="/about/" class="nav-button"> Hakkımızda </a>
-      <a href="/contact/" class="nav-button"> İletişim </a>
+      <nav class="primary-navigation" aria-label="Ana menü">
+        <a class="primary-navigation-link is-current" href="/" aria-current="page">Ana Sayfa</a>
+        <a class="primary-navigation-link" href="/about/">Kurumsal</a>
+        <a class="primary-navigation-link" href="/services/">Hizmetler</a>
+        <a class="primary-navigation-link" href="/projects/">Projeler</a>
+        <a class="primary-navigation-link" href="/noise-barriers/">Gürültü Bariyerleri</a>
+        <a class="primary-navigation-link" href="/contact/">İletişim</a>
+      </nav>
 
-      <button href="/contact/" class="quote-button" id="quote">
-        Fiyat Teklifi Alın
-      </button>
-    </nav>
+      <a class="button button-primary header-quote" href="/contact/#project-inquiry">Proje Talebi</a>
+    </div>
   </header>
 
-  <main>
-    <section class="hero"></section>
+  <main id="main-content" tabindex="-1">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="section-kicker">Mimari Danışmanlık &amp; Proje Uygulama</p>
+          <h1>Projeden uygulamaya, koordineli mimari çözümler.</h1>
+          <p class="hero-description">
+            Mimari danışmanlık, proje geliştirme, teknik koordinasyon ve saha süreçlerini birlikte ele alıyor; kamu
+            ve özel sektör projelerinin farklı aşamalarına ihtiyaç doğrultusunda katkı sunuyoruz.
+          </p>
+          <div class="action-group">
+            <a class="button button-primary" href="/services/">Çalışma Alanlarımız</a>
+            <a class="text-link" href="/noise-barriers/">Gürültü Bariyerleri <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <!-- TODO: supplied infrastructure or field-application project media. -->
+        <div class="visual-placeholder hero-visual media-slot" data-media-slot="home-hero" aria-hidden="true">
+          <span>Proje / saha uygulama medyası</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section capabilities" aria-labelledby="capabilities-title">
+      <div class="container">
+        <header class="section-heading-row">
+          <div>
+            <p class="section-kicker">Çalışma Alanları</p>
+            <h2 class="display-title" id="capabilities-title">Proje yaşam döngüsüne bütüncül katkı</h2>
+          </div>
+          <p>İhtiyaca göre danışmanlık, projelendirme, paydaş koordinasyonu ve uygulama süreçlerinde görev alıyoruz.</p>
+        </header>
+
+        <div class="capability-grid">
+          <article class="capability-item">
+            <span class="capability-number">01</span>
+            <h3>Mimari Danışmanlık</h3>
+            <p>Proje ihtiyaçlarının mimari açıdan değerlendirilmesi ve karar süreçlerinin yönlendirilmesi.</p>
+          </article>
+          <article class="capability-item">
+            <span class="capability-number">02</span>
+            <h3>Proje Geliştirme ve Koordinasyon</h3>
+            <p>Proje kapsamının geliştirilmesi ile mimari ve uygulama kararları arasındaki sürecin koordinasyonu.</p>
+          </article>
+          <article class="capability-item">
+            <span class="capability-number">03</span>
+            <h3>Yüklenici Koordinasyonu</h3>
+            <p>Yüklenici ve alt yüklenicilerle yürütülen süreçlerin proje gereklilikleri doğrultusunda eşgüdümü.</p>
+          </article>
+          <article class="capability-item capability-item-accent">
+            <span class="capability-number">04</span>
+            <h3>Gürültü Bariyeri Sistemleri</h3>
+            <p>Projeye özgü bariyer uygulamalarında mimari, teknik ve saha koordinasyonunun birlikte ele alınması.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="noise-feature" id="noise-barriers" aria-labelledby="noise-title">
+      <div class="container noise-grid">
+        <!-- TODO: replace with supplied noise-barrier project media. -->
+        <div class="visual-placeholder noise-visual media-slot" data-media-slot="home-noise-barrier" aria-hidden="true">
+          <span>Gürültü bariyeri proje medyası</span>
+        </div>
+        <div class="noise-content">
+          <p class="section-kicker section-kicker-light">Uzmanlık Alanı</p>
+          <h2 id="noise-title">Gürültü Bariyeri Sistemleri</h2>
+          <p>
+            Gürültü bariyeri uygulamalarını saha koşulları, proje gereklilikleri ve uygulama organizasyonu ile birlikte
+            ele alıyoruz.
+          </p>
+          <a class="text-link text-link-light" href="/noise-barriers/">Detaylı İnceleyin <span
+              aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section featured-projects" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section-heading-row projects-heading">
+          <div>
+            <p class="section-kicker">Proje Alanları</p>
+            <h2 class="display-title" id="projects-title">Seçili Projeler</h2>
+          </div>
+          <a class="text-link" href="/projects/">Projeler <span aria-hidden="true">→</span></a>
+        </header>
+
+        <!-- TODO: temporary entries; replace with verified project names, details and supplied media. -->
+        <div class="project-grid">
+          <a class="project-card project-card-public" href="/projects/">
+            <span class="project-card-placeholder media-slot" data-media-slot="home-project-01" aria-hidden="true"></span>
+            <span class="project-card-content">
+              <span class="project-card-title">Kamu Projesi</span>
+              <span class="project-card-meta">Proje bilgisi hazırlanıyor</span>
+              <span class="project-card-rule" aria-hidden="true"></span>
+            </span>
+          </a>
+          <a class="project-card project-card-barrier" href="/noise-barriers/">
+            <span class="project-card-placeholder media-slot" data-media-slot="home-project-02" aria-hidden="true"></span>
+            <span class="project-card-content">
+              <span class="project-card-title">Gürültü Bariyeri Uygulaması</span>
+              <span class="project-card-meta">Proje bilgisi hazırlanıyor</span>
+              <span class="project-card-rule" aria-hidden="true"></span>
+            </span>
+          </a>
+          <a class="project-card project-card-corporate" href="/projects/">
+            <span class="project-card-placeholder media-slot" data-media-slot="home-project-03" aria-hidden="true"></span>
+            <span class="project-card-content">
+              <span class="project-card-title">Kurumsal Proje</span>
+              <span class="project-card-meta">Proje bilgisi hazırlanıyor</span>
+              <span class="project-card-rule" aria-hidden="true"></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section delivery-process" aria-labelledby="process-title">
+      <div class="container">
+        <header class="section-heading-row">
+          <div>
+            <p class="section-kicker">Çalışma Süreci</p>
+            <h2 class="display-title" id="process-title">Projeye göre şekillenen koordinasyon</h2>
+          </div>
+          <p>Her projede kapsam ve sorumluluklar belirlenir; ilgili aşamalara disiplinli bir çalışma düzeniyle katkı sağlanır.</p>
+        </header>
+        <ol class="process-list">
+          <li><span>01</span><strong>İhtiyaç ve Kapsam</strong></li>
+          <li><span>02</span><strong>Projelendirme</strong></li>
+          <li><span>03</span><strong>Teknik Koordinasyon</strong></li>
+          <li><span>04</span><strong>Yüklenici Organizasyonu</strong></li>
+          <li><span>05</span><strong>Uygulama / Saha Süreci</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="institutional" aria-labelledby="institutional-title">
+      <div class="container institutional-grid">
+        <div class="institutional-content">
+          <p class="section-kicker">Kurumsal Yaklaşım</p>
+          <h2 class="display-title" id="institutional-title">Mimari karar ile saha uygulaması arasında güçlü bağ</h2>
+        </div>
+        <div class="institutional-statement">
+          <p>
+            Rito Mimarlık, kamu ve özel sektör projelerinde mimari düşünceyi uygulama gerçekliğiyle birlikte ele alır.
+            İlgili disiplinler, yükleniciler ve proje paydaşları arasındaki koordinasyonu; açık kapsam, teknik tutarlılık
+            ve kontrollü iş birliği temelinde yürütmeyi amaçlar.
+          </p>
+          <a class="text-link" href="/about/">Kurumsal <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-cta" aria-labelledby="contact-cta-title">
+      <div class="container contact-cta-inner">
+        <div class="contact-cta-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M6 9h36v25H22l-9 7v-7H6zM13 17h22M13 24h16" />
+          </svg>
+        </div>
+        <div class="contact-cta-copy">
+          <h2 id="contact-cta-title">Projenizi birlikte değerlendirelim.</h2>
+          <p>Mimari danışmanlık, uygulama koordinasyonu ve gürültü bariyeri proje talepleriniz için iletişime geçin.</p>
+        </div>
+        <a class="button button-outline" href="/contact/#project-inquiry">Proje Talebi</a>
+      </div>
+    </section>
   </main>
 
-  <footer></footer>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <a class="brand brand-light" href="/" aria-label="Rito Mimarlık ana sayfa">
+        <span class="brand-name">RİTO</span>
+        <span class="brand-discipline">MİMARLIK</span>
+      </a>
+
+      <nav class="footer-navigation" aria-label="Alt menü">
+        <a href="/">Ana Sayfa</a>
+        <a href="/about/">Kurumsal</a>
+        <a href="/services/">Hizmetler</a>
+        <a href="/projects/">Projeler</a>
+        <a href="/noise-barriers/">Gürültü Bariyerleri</a>
+        <a href="/contact/">İletişim</a>
+      </nav>
+
+      <!-- TODO: replace with verified company contact information. -->
+      <address class="footer-contact">
+        <span>Adres bilgisi eklenecek</span>
+        <span>Telefon bilgisi eklenecek</span>
+        <span>E-posta bilgisi eklenecek</span>
+      </address>
+
+      <div class="footer-focus">
+        <span>Mimari danışmanlık</span>
+        <span>Proje koordinasyonu</span>
+        <span>Gürültü bariyerleri</span>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <small>&copy; 2026 Rito Mimarlık</small>
+      <a href="/privacy/">Gizlilik ve KVKK</a>
+    </div>
+  </footer>
 </body>
 
 </html>

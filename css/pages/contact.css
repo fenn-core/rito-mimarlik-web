@@ -1,11 +1,323 @@
+.contact-hero {
+  padding-block: clamp(3rem, 5vw, 5rem) clamp(2.75rem, 4.5vw, 4.5rem);
+}
+
+.contact-hero-grid,
+.inquiry-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(19rem, 0.6fr);
+  gap: clamp(2.5rem, 6vw, 7rem);
+  align-items: end;
+}
+
+.contact-hero h1 {
+  max-width: 14ch;
+  margin: var(--space-4) 0 0;
+  font-size: clamp(2.65rem, 4.3vw, 4.7rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.contact-hero-grid > p {
+  margin: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-slate);
+}
+
+.inquiry-introduction {
+  border-top: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-sand) 20%, var(--color-ivory));
+}
+
+.inquiry-intro-grid > div:last-child > p {
+  margin: 0 0 var(--space-4);
+  color: var(--color-slate);
+}
+
+.inquiry-intro-grid ul {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+  list-style: none;
+}
+
+.inquiry-intro-grid li {
+  padding-block: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.84rem;
+}
+
+.inquiry-form-section {
+  padding-block: clamp(3.25rem, 5vw, 5.25rem);
+}
+
+.inquiry-layout {
+  display: grid;
+  width: 100%;
+  max-width: var(--measure-medium);
+  margin-inline: auto;
+  grid-template-columns: minmax(15rem, 0.42fr) minmax(0, 1.58fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: start;
+}
+
+.inquiry-aside {
+  position: sticky;
+  top: var(--space-5);
+}
+
+.inquiry-aside h2 {
+  margin: var(--space-3) 0;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.inquiry-aside > p:not(.section-kicker) {
+  margin: 0;
+  color: var(--color-slate);
+  font-size: 0.84rem;
+}
+
+.inquiry-aside > .required-fields-note {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.required-fields-note span,
+.form-group:has(> :is(input, select, textarea):required) > label::after,
+.option-group:has(input:required) > legend::after {
+  color: var(--color-error);
+}
+
 .form-group:has(> :is(input, select, textarea):required) > label::after,
 .option-group:has(input:required) > legend::after {
   content: " *";
-  color: red;
-  font-weight: bold;
 }
 
-.required-fields-note-asterisk {
-color: red;
-font-weight: bold;
+#project-inquiry {
+  min-width: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.form-section {
+  min-width: 0;
+  margin: 0;
+  padding: clamp(1.75rem, 3vw, 2.75rem) 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.form-section[hidden] {
+  display: none;
+}
+
+.form-section legend {
+  margin-bottom: var(--space-4);
+  padding: 0;
+  color: var(--color-graphite);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.form-grid-contact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.form-group-wide {
+  grid-column: 1 / -1;
+}
+
+.form-group {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.form-group label {
+  color: var(--color-slate);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+}
+
+.form-group :is(input, select, textarea) {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--color-steel);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-graphite);
+  line-height: 1.4;
+}
+
+.form-group :is(input, select) {
+  min-height: 3.25rem;
+  padding: 0.65rem 0;
+}
+
+.form-group textarea {
+  min-height: 11rem;
+  padding: 0.85rem;
+  border: 1px solid var(--color-steel);
+  resize: vertical;
+}
+
+.form-group :is(input, select, textarea)::placeholder {
+  color: color-mix(in srgb, var(--color-slate) 58%, transparent);
+}
+
+.form-group :is(input, select, textarea):focus {
+  border-color: var(--color-slate);
+  outline: 2px solid transparent;
+}
+
+.form-group :is(input, select, textarea):disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.form-group :is(input, select, textarea):user-invalid {
+  border-color: var(--color-error);
+}
+
+.option-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.option {
+  position: relative;
+}
+
+.option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.option label {
+  display: flex;
+  min-height: 2.8rem;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--color-steel);
+  cursor: pointer;
+  font-size: var(--font-size-small);
+}
+
+.option input:checked + label {
+  border-color: var(--color-slate);
+  background: var(--color-slate);
+  color: var(--color-ivory);
+}
+
+.option input:focus-visible + label {
+  outline: 2px solid var(--color-steel);
+  outline-offset: 4px;
+}
+
+.kvkk-group {
+  display: grid;
+  margin-top: var(--space-5);
+  grid-template-columns: 1.2rem 1fr;
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.kvkk-group input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0.2rem 0 0;
+  accent-color: var(--color-slate);
+}
+
+.kvkk-group label {
+  max-width: 48rem;
+  color: var(--color-slate);
+  font-size: var(--font-size-small);
+}
+
+.kvkk-group a {
+  color: var(--color-graphite);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.submission-status {
+  margin: var(--space-5) 0 0;
+  padding: var(--space-3);
+  border-left: 2px solid var(--color-steel);
+  background: color-mix(in srgb, var(--color-sand) 24%, transparent);
+  color: var(--color-slate);
+  font-size: var(--font-size-small);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-5);
+}
+
+.form-actions .button {
+  min-width: 12rem;
+  cursor: pointer;
+}
+
+@media (max-width: 58rem) {
+  .contact-hero-grid,
+  .inquiry-intro-grid,
+  .inquiry-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .inquiry-aside {
+    position: static;
+  }
+}
+
+@media (max-width: 44rem) {
+  .form-grid-contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 38rem) {
+  .contact-hero {
+    padding-top: var(--space-6);
+  }
+
+  .contact-hero h1 {
+    font-size: clamp(2.55rem, 13vw, 3.5rem);
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group-wide {
+    grid-column: auto;
+  }
+
+  .option-row,
+  .option,
+  .option label {
+    width: 100%;
+  }
+
+  .form-actions .button {
+    width: 100%;
+  }
 }

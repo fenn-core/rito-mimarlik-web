@@ -1,0 +1,293 @@
+.about-hero {
+  padding-block: clamp(3rem, 5vw, 5rem) clamp(2.75rem, 4.5vw, 4.5rem);
+}
+
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(19rem, 0.6fr);
+  gap: clamp(2.5rem, 6vw, 7rem);
+  align-items: end;
+}
+
+.about-hero h1 {
+  max-width: 15ch;
+  margin: var(--space-4) 0 0;
+  font-size: clamp(2.65rem, 4.3vw, 4.7rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.about-hero-copy {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-hero-copy p {
+  margin: 0 0 var(--space-5);
+  color: var(--color-slate);
+}
+
+.about-hero-field {
+  position: relative;
+  display: flex;
+  min-height: 5rem;
+  grid-column: 1 / -1;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: clamp(1rem, 3vw, 3rem);
+  padding: var(--space-3);
+  border-block: 1px solid var(--color-border);
+  background:
+    linear-gradient(90deg, transparent 0 24.8%, var(--color-border) 24.8% 25%, transparent 25% 49.8%, var(--color-border) 49.8% 50%, transparent 50% 74.8%, var(--color-border) 74.8% 75%, transparent 75%);
+  color: var(--color-slate);
+  font-size: var(--font-size-meta);
+  letter-spacing: 0.16em;
+}
+
+.company-position {
+  border-top: 1px solid var(--color-border);
+}
+
+.position-grid,
+.sector-context-grid,
+.about-barrier-grid {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(3rem, 8vw, 9rem);
+}
+
+.position-copy {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.position-copy p {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--color-slate);
+}
+
+.position-copy .position-lead {
+  margin-bottom: var(--space-4);
+  color: var(--color-graphite);
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  line-height: 1.45;
+}
+
+.project-philosophy {
+  background: color-mix(in srgb, var(--color-sand) 24%, var(--color-ivory));
+}
+
+.philosophy-list,
+.principles-grid {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+  list-style: none;
+}
+
+.philosophy-list {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.philosophy-list li,
+.principles-grid li {
+  min-height: 12rem;
+  padding: var(--space-4) clamp(1rem, 2vw, 2.25rem) var(--space-5);
+  border-left: 1px solid var(--color-border);
+}
+
+.philosophy-list li:first-child,
+.principles-grid li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.philosophy-list span,
+.principles-grid span,
+.sector-pair article > span {
+  color: var(--color-slate);
+  font-size: var(--font-size-meta);
+  letter-spacing: 0.12em;
+}
+
+.philosophy-list h3,
+.principles-grid h3,
+.sector-pair h3 {
+  margin: clamp(2rem, 3.5vw, 3.5rem) 0 var(--space-2);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.philosophy-list p,
+.principles-grid p,
+.sector-pair p {
+  margin: 0;
+  color: var(--color-slate);
+  font-size: var(--font-size-small);
+}
+
+.coordination-center {
+  padding-block: clamp(3.25rem, 5vw, 5.25rem);
+  background: var(--color-graphite);
+  color: var(--color-ivory);
+}
+
+.coordination-center-grid {
+  display: grid;
+  grid-template-columns: minmax(19rem, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(3rem, 8vw, 9rem);
+  align-items: start;
+}
+
+.coordination-center-heading h2,
+.about-barrier h2 {
+  max-width: 14ch;
+  margin: var(--space-4) 0;
+  font-size: clamp(2rem, 3.1vw, 3.45rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.03;
+}
+
+.coordination-center-heading > p:last-child {
+  max-width: 34rem;
+  margin: 0;
+  color: color-mix(in srgb, var(--color-ivory) 72%, transparent);
+  font-size: 0.88rem;
+}
+
+.coordination-stack {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(245, 241, 232, 0.25);
+  list-style: none;
+}
+
+.coordination-stack li {
+  display: grid;
+  padding-block: var(--space-3);
+  grid-template-columns: 3rem 1fr;
+  gap: var(--space-3);
+  border-bottom: 1px solid rgba(245, 241, 232, 0.2);
+}
+
+.coordination-stack span {
+  color: var(--color-sand);
+  font-size: var(--font-size-meta);
+  letter-spacing: 0.12em;
+}
+
+.coordination-stack strong {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.sector-pair {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--color-border);
+}
+
+.sector-pair article {
+  min-height: 12rem;
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  border-left: 1px solid var(--color-border);
+}
+
+.sector-pair article:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.principles-grid {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.principles-grid li {
+  min-height: 12.5rem;
+  padding-inline: clamp(0.8rem, 1.6vw, 1.6rem);
+}
+
+.principles-grid h3 {
+  margin-top: clamp(2rem, 4vw, 4rem);
+}
+
+.about-barrier {
+  padding-block: clamp(3.25rem, 5vw, 5.25rem);
+  background: var(--color-slate);
+  color: var(--color-ivory);
+}
+
+.about-barrier-grid {
+  align-items: end;
+}
+
+.about-barrier-copy {
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(245, 241, 232, 0.28);
+}
+
+.about-barrier-copy p {
+  max-width: 43rem;
+  margin: 0 0 var(--space-5);
+  color: color-mix(in srgb, var(--color-ivory) 80%, transparent);
+}
+
+@media (max-width: 70rem) {
+  .principles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .principles-grid li:nth-child(4) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 58rem) {
+  .about-hero-grid,
+  .position-grid,
+  .coordination-center-grid,
+  .sector-context-grid,
+  .about-barrier-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 38rem) {
+  .about-hero {
+    padding-top: var(--space-6);
+  }
+
+  .about-hero h1 {
+    font-size: clamp(2.55rem, 13vw, 3.5rem);
+  }
+
+  .philosophy-list,
+  .principles-grid,
+  .sector-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .philosophy-list li,
+  .philosophy-list li:first-child,
+  .principles-grid li,
+  .principles-grid li:first-child,
+  .principles-grid li:nth-child(4),
+  .sector-pair article,
+  .sector-pair article:first-child {
+    min-height: 0;
+    padding: var(--space-4) 0 var(--space-5);
+    border-bottom: 1px solid var(--color-border);
+    border-left: 0;
+  }
+
+  .philosophy-list h3,
+  .principles-grid h3,
+  .sector-pair h3 {
+    margin-top: var(--space-5);
+  }
+}

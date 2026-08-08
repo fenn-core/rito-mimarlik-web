@@ -1,0 +1,216 @@
+:root {
+  --color-graphite: #262a2f;
+  --color-slate: #4f5e6c;
+  --color-steel: #738190;
+  --color-sand: #d8cfbf;
+  --color-ivory: #f5f1e8;
+  --color-stone: #b9b1a5;
+  --color-white: #fffdf8;
+  --color-error: #8d3f35;
+  --color-border: color-mix(in srgb, var(--color-stone) 62%, transparent);
+
+  --font-display: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-body: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4.5rem;
+  --space-8: 6.5rem;
+
+  /* The canvas grows from 1504px on ordinary desktops to about 2200px at 4K. */
+  --content-width: clamp(94rem, 64vw, 122rem);
+  --measure-medium: 104rem;
+  --measure-narrow: 74ch;
+  --page-gutter: clamp(1.25rem, 5.5vw, 5.75rem);
+  --font-size-body: 1rem;
+  --font-size-small: 0.9rem;
+  --font-size-meta: 0.8rem;
+  --radius-small: 0.125rem;
+  --transition-fast: 180ms ease;
+}
+
+html {
+  /* 16px through normal desktop widths, rising gradually to 18px at 4K. */
+  font-size: clamp(100%, calc(87.5% + 0.104167vw), 112.5%);
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--color-ivory);
+  color: var(--color-graphite);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: 1.58;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-steel);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 100;
+  padding: 0.7rem 1rem;
+  background: var(--color-graphite);
+  color: var(--color-ivory);
+  font-size: 0.86rem;
+  transform: translateY(calc(-100% - var(--space-4)));
+  transition: transform var(--transition-fast);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.container {
+  width: min(100% - (2 * var(--page-gutter)), var(--content-width));
+  margin-inline: auto;
+}
+
+.brand {
+  display: inline-flex;
+  width: max-content;
+  flex-direction: column;
+  color: var(--color-graphite);
+  line-height: 0.82;
+  letter-spacing: 0.14em;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 2.5vw, 3.2rem);
+  font-weight: 650;
+}
+
+.brand-discipline {
+  width: max-content;
+  margin-top: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid currentColor;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+}
+
+.brand-logo {
+  display: block;
+  width: auto;
+  max-width: min(100%, 12rem);
+  height: clamp(2.75rem, 4vw, 4.2rem);
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  min-height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.35rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.2;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.button::after {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 1rem;
+  height: 1rem;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  content: "";
+  transform: skew(-45deg) translate(0.2rem, 0.2rem);
+  transform-origin: bottom right;
+}
+
+.button-primary {
+  background: var(--color-slate);
+  color: var(--color-ivory);
+}
+
+.button-primary:hover {
+  background: var(--color-graphite);
+}
+
+.button-outline {
+  border-color: var(--color-slate);
+  color: var(--color-graphite);
+}
+
+.button-outline:hover {
+  background: var(--color-slate);
+  color: var(--color-ivory);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-slate);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.text-link span {
+  transition: transform var(--transition-fast);
+}
+
+.text-link:hover span {
+  transform: translateX(0.25rem);
+}
+
+@media (max-width: 38rem) {
+  :root {
+    --page-gutter: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
