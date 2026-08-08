@@ -31,13 +31,12 @@ Do not create empty asset directories; add each path with its first verified fil
 - Use `loading="lazy"` and `decoding="async"` for below-the-fold images.
 - Do not lazy-load the primary hero/LCP image.
 - Use `srcset` and `sizes` when multiple verified responsive variants are available.
-- Set a crop without new CSS by adding `style="--media-position: 42% 50%"` to the slot. Use `--media-fit: contain` only for drawings or diagrams that must remain fully visible.
+- Set a crop in the relevant page stylesheet with a slot-specific rule such as `[data-media-slot="home-hero"] { --media-position: 42% 50%; }`. Set `--media-fit: contain` there only for drawings or diagrams that must remain fully visible. Avoid inline styles so the production CSP can retain `style-src 'self'`.
 
 Conceptual populated-slot pattern (replace brace values only after assets exist):
 
 ```html
-<div class="... media-slot is-media-populated" data-media-slot="{slot-id}"
-  style="--media-position: 50% 50%">
+<div class="... media-slot is-media-populated" data-media-slot="{slot-id}">
   <picture>
     <source type="image/avif" srcset="{avif-srcset}" sizes="{sizes}">
     <img src="{webp-path}" srcset="{webp-srcset}" sizes="{sizes}"
