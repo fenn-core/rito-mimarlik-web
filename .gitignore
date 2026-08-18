@@ -1,15 +1,17 @@
 # Credentials 
 
 .env 
+.env.*
+*.env
 !.env.example 
 
 
 # Build and IDE related
 
 .vscode/
+node_modules/
 
 
 # Local files
 
 local_files/
-

@@ -102,7 +102,7 @@ The nginx HTTPS server applies these headers with `always`, including error resp
 | `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=(), usb=()` |
 | `X-Frame-Options` | `DENY` (legacy reinforcement for `frame-ancestors 'none'`) |
 
-Cache locations use nginx `expires` rather than child `add_header` directives. This deliberately preserves inheritance of the server-level security headers. Review CSP before adding any API, analytics, remote font or third-party media. The current `form-action 'none'` and `connect-src 'none'` match the disabled inquiry form.
+Cache locations use nginx `expires` rather than child `add_header` directives. This deliberately preserves inheritance of the server-level security headers. The checked-in static-only template still uses `form-action 'none'` and `connect-src 'none'`; the active inquiry frontend requires the separately reviewed same-origin API/CSP adapter described below before production activation.
 
 ## Cache and compression
 
@@ -146,9 +146,11 @@ nginx needs read/traverse access to the release tree, never write access. Use or
 
 The exact transfer/login commands are deferred until server access details are known. The stable `current` path keeps nginx configuration independent of release IDs.
 
-## Form, future API and legal dependency
+## Inquiry API deployment boundary
 
-The inquiry form remains `data-submission-mode="disabled"` and makes no request. There is no `proxy_pass`, upstream, POST route or active `/api/` location. Keep CSP `form-action 'none'` and `connect-src 'none'` until a real endpoint is implemented and the privacy/legal dependencies in `docs/inquiry-submission.md` are resolved.
+The frontend now posts JSON to same-origin `/api/inquiry`, and the standalone Node service is implemented under `server/inquiry/`. The checked-in nginx template remains static-only: it still blocks POST globally, has no `proxy_pass`, and uses `connect-src 'none'`. It must not be installed as an active-form configuration without the reviewed API adapter described in `docs/inquiry-submission.md`.
+
+Deploy the service separately under an unprivileged account, provide secrets through a protected EnvironmentFile, bind it to `127.0.0.1`, then add the exact `/api/inquiry` proxy and change CSP to `connect-src 'self'`. Do not expose the Node listener publicly or place SMTP credentials in the static release.
 
 ## DNS coexistence
 

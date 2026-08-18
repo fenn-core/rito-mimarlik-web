@@ -12,7 +12,7 @@ Authenticity rule: project and case-study imagery must be genuine Rito work with
 
 * [x] Canonical public/mail domain supplied: `ritomimarlik.com` (future canonical origin: `https://ritomimarlik.com`).
 * [x] General company address supplied: `info@ritomimarlik.com`.
-* [x] Project-inquiry/future form destination supplied: `proje@ritomimarlik.com`.
+* [x] Active project-inquiry delivery destination supplied: `proje@ritomimarlik.com`.
 * [x] Personal mailbox identities supplied: `arda.simsek@ritomimarlik.com`, `mustafa.simsek@ritomimarlik.com`, and `dilek.simsek@ritomimarlik.com`.
 * [x] `info@ritomimarlik.com` is exposed as the public general-contact address; no personal mailbox is public-facing.
 * [x] `info@` and `proje@` are receive-oriented group addresses; this alone does not define who may access inquiry data.
@@ -22,7 +22,7 @@ Authenticity rule: project and case-study imagery must be genuine Rito work with
 Affected public routes: `/`, `/about/`, `/services/`, `/projects/`, `/noise-barriers/`, `/contact/`, `/privacy/`, and `/404.html` through the repeated footer; `/contact/` and `/privacy/` have additional dependencies.
 
 * [x] `info@ritomimarlik.com` is confirmed and integrated as the public general-contact link in every footer and on `/contact/`.
-* [ ] Identify the authorized human recipients behind the confirmed future inquiry destination `proje@ritomimarlik.com` for privacy/workflow purposes.
+* [ ] Identify the authorized human recipients behind the confirmed inquiry destination `proje@ritomimarlik.com` for privacy/workflow purposes.
 * [x] Personal mailboxes are explicitly not for publication and remain absent from public HTML.
 * [x] Verified public business address integrated sitewide: Yunus Mah. Kasımpatı Sk. No: 49, Daire: 7; Kartal / İstanbul.
 * [x] Verified public telephone integrated sitewide as `+90 533 354 69 15` with `tel:+905333546915` links.
@@ -310,19 +310,19 @@ On `/noise-barriers/`, plus related wording on `/`, `/about/`, `/services/`, `/p
 
 ## 7. Contact-form dependencies
 
-Current source: `/contact/#project-inquiry`, `js/quote-form.js`, and `docs/inquiry-submission.md`. The form has `data-submission-mode="disabled"`; JS performs local native validation and cancels valid submissions. Values remain only in the DOM and are not transmitted, persisted, logged, or put in the URL. Visible pre-backend copy honestly says transmission is inactive. Implemented states are IDLE and PRE-BACKEND/DISABLED only.
+Current source: `/contact/#project-inquiry`, `js/quote-form.js`, `server/inquiry/`, and `docs/inquiry-submission.md`. The active form posts JSON to same-origin `/api/inquiry`; the loopback Node service validates it and sends transiently generated mail through authenticated Zoho SMTP. No application database, local inquiry archive, file spool, or persistent queue exists.
 
-* [x] Future mail destination is `proje@ritomimarlik.com`.
-* [x] Field names in markup match the documented payload contract: `customer-type`, `full-name`, `email`, `phone`, `contact-method`, `company-name`, `company-role`, `requested-service`, `project-type`, `address`, `message`, and `kvkk-consent`.
+* [x] Active mail destination is `proje@ritomimarlik.com`; authenticated SMTP identity is `webform@ritomimarlik.com`.
+* [x] Field names in markup and server schema match: `customer-type`, `full-name`, `email`, `phone`, `contact-method`, `company-name`, `company-role`, `requested-service`, `project-type`, `address`, `message`, `kvkk-consent`, plus the anti-spam `website` honeypot.
 * [x] Current service/project option terminology matches the supplied business positioning; no obsolete service option was found.
 * [ ] Confirm the final service options and project-type taxonomy against actual intake workflow, including whether “Altyapı / Ulaşım Bağlantılı Proje” and “Diğer” should remain.
 * [ ] Confirm required/optional rules, especially telephone when phone is preferred, business organization name, and whether individual inquiries are accepted.
 * [ ] Review example placeholders (`ornek@firma.com`, `05XX XXX XX XX`, project-location and message hints) as final user-facing guidance; they are demonstrative, not company facts.
-* [ ] Define the actual HTTPS POST endpoint, response schema, server validation, authentication/abuse controls, retry policy, and delivery provider (**DEPENDENT ON FUTURE BACKEND**).
-* [ ] Define authorized recipients/access behind `proje@`, operational routing, response ownership, and failure monitoring (**DEPENDENT ON FUTURE BACKEND**).
-* [ ] Implement honest PENDING, SUCCESS, and ERROR states only with the future backend; keep the present disabled state until then.
+* [x] Implemented `POST /api/inquiry`, stable JSON responses, authoritative validation, body limit, Origin enforcement, honeypot, in-memory rate limiting, and Zoho SMTP delivery without persistent retries.
+* [ ] Confirm authorized people/access behind `proje@`, response ownership, mailbox retention/deletion, and operational failure monitoring.
+* [x] Implemented honest PENDING, SUCCESS, validation, rate-limit, and delivery-error states; success requires SMTP acceptance and only success resets the form.
 * [ ] Reconcile the checkbox wording and whether it records notice acknowledgement or consent with qualified KVKK review; the current `kvkk-consent` name/legal treatment is provisional.
-* [ ] Complete and approve the privacy prerequisites in section 8 before form activation.
+* [ ] Complete qualified privacy/KVKK review in section 8 before production deployment with real submissions.
 
 ## 8. Privacy/legal dependencies
 
@@ -331,19 +331,20 @@ Route: `/privacy/`; related contract: `docs/inquiry-submission.md`. This is an a
 * [x] Formal electronic KVKK/data-subject application contact verified and integrated as `info@ritomimarlik.com`; literal `[E-posta Adresiniz]` removed.
 * [x] Legal entity/data-controller identity verified and integrated exactly as `Rito Mimarlik Proje Yonetim Ltd Sti`.
 * [x] Formal written/application address verified and integrated: Yunus Mah. Kasımpatı Sk. No: 49, Daire: 7; Kartal / İstanbul.
-* [ ] **FACT REQUIRING VERIFICATION:** confirm the data categories actually collected once the backend exists; current list is name, email, phone, and project details, while the documented payload also includes organization/role, preferences, location, message, and acknowledgement.
+* [x] **IMPLEMENTED FACT:** received fields are documented exactly: requester type/name, email, optional/conditional phone, contact preference, conditional organization/role, requested service, project type, optional project location, message, notice acknowledgement, and an empty honeypot.
 * [ ] **FACT REQUIRING VERIFICATION + LEGAL REVIEW REQUIRED:** verify processing purposes (“inquiry evaluation, contact, quotation, service processes”) against the actual workflow.
 * [ ] **FACT REQUIRING VERIFICATION + LEGAL REVIEW REQUIRED:** verify the statement that data is not shared with third parties except for legal obligations; future hosting, mail, security, or delivery providers may contradict it.
-* [ ] **DEPENDENT ON FUTURE BACKEND:** identify inquiry destination, authorized recipients, hosting/mail/processors, storage locations, logs/backups, retention/deletion behavior, security measures, and any domestic/international transfers.
+* [x] **IMPLEMENTED FACT:** the Node service sends through Zoho SMTP from `webform@` to `proje@`; it has no application database, persistent queue, file spool, local archive, or content-bearing operational logs, and rate-limit metadata is transient/in-memory.
+* [ ] **FACT + LEGAL REVIEW REQUIRED:** identify authorized recipients behind `proje@`, hosting/mail processor roles and transfer locations, recipient/provider mailbox retention and deletion, backups, and the complete operational security/account-access model.
 * [ ] **LEGAL REVIEW REQUIRED:** identify the lawful basis, required notice content, data-subject request process, identity verification, response workflow, and whether consent is appropriate.
 * [ ] **LEGAL REVIEW REQUIRED:** review the rights summary and the complete notice under applicable KVKK requirements before production processing.
 * [ ] **FACT REQUIRING VERIFICATION:** confirm whether cookies, analytics, embedded maps, remote fonts/media, or other third-party services exist at activation time. None is evident in the current public source, but future additions change the policy.
-* [ ] **DEPENDENT ON FUTURE BACKEND:** reconcile policy wording with actual server response and operational inquiry handling before changing `data-submission-mode`.
+* [x] Public current-state wording now reflects active transient receipt/email delivery and the absence of an application database/local archive; it does not invent legal basis or retention.
 
 ### Second-pass omissions found 2026-08-18
 
 * [x] Removed the visible internal-status warning `Kurum kimliği ve başvuru e-posta adresine ilişkin doğrulanmış bilgiler bu metinde henüz tamamlanmamıştır.` without replacing it with development language.
-* [x] Removed the present-tense form-processing claim and replaced it with the truthful current state: the disabled form does not transmit personal data.
+* [x] Removed the obsolete disabled-form statement after implementation and replaced it with the limited technical facts of transient server receipt and email delivery.
 * [x] Removed speculative active-purpose and no-third-party-sharing claims from the public page; future workflow facts remain unresolved below.
 * [x] Reframed the page as current `Kişisel Verilerin Korunması ve Başvuru Bilgileri`, not a finalized active-form notice.
 * [ ] Have qualified counsel assess notice completeness, including collection method, lawful basis, recipient/transfer detail, retention, data-controller contact/address requirements, and the complete data-subject application procedure; these elements are absent or incomplete in the current three-section text.
@@ -355,7 +356,7 @@ Affected files/routes for the shared header/footer: `index.html` (`/`), `about/i
 * [x] Grouped footer address, telephone, and email placeholders were replaced consistently on all eight documents.
 * [x] The grouped `RİTO / MİMARLIK` header/footer wordmark is an intentional accessible fallback; final logo/favicon assets remain optional future brand work.
 * [ ] Review the footer descriptor trio (“Mimari danışmanlık / Proje koordinasyonu / Gürültü bariyerleri”) against final approved service language; it is currently safe positioning, not a placeholder fact.
-* [ ] Confirm global “Proje Talebi” and related “Projenizi Görüşelim” CTA wording once the real intake path is operational; links correctly reach the currently disabled form but cannot yet transmit.
+* [x] Global “Proje Talebi” and related “Projenizi Görüşelim” CTAs reach the now-active inquiry form; delivery still depends on completing the separate production service/nginx activation.
 * [ ] Decide whether the hardcoded `© 2026 Rito Mimarlık` should be maintained manually or made dynamic in a later implementation pass; legal entity attribution depends on the verified company identity.
 * [x] Header/footer navigation destinations are consistent and no empty/hash/example navigation link was found.
 * [x] `404.html` has no route-specific factual placeholder beyond the shared footer/brand/CTA dependencies.
@@ -380,7 +381,7 @@ Inventory only—do not implement until stage 5.
 * [x] Relevant CSS, JS, `assets/`, `docs/`, validators, README, and deployment documentation were searched for literal and semantic placeholders.
 * [x] The 13 media slots and manifest are synchronized; no undocumented markup slot or orphaned manifest slot was found.
 * [x] `docs/media-conventions.md` matches the current wrapper, accessibility, loading, crop, naming, and validator contracts.
-* [x] `docs/inquiry-submission.md` matches the current disabled form and field names; it correctly defers endpoint and privacy facts.
+* [x] `docs/inquiry-submission.md` matches the active form, backend schema, SMTP path, response contract, and operational deployment boundary.
 * [x] Four verified projects populate `/projects/`; the homepage contains the approved three-project selection and order.
 * [x] Verified public email, telephone, business address, and office hours are integrated; no map link or visitor-facility claim was added.
 * [x] No personal Rito mailbox is public-facing.

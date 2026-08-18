@@ -1,0 +1,28 @@
+[Unit]
+Description=Rito Mimarlik project inquiry service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=rito-inquiry
+Group=rito-inquiry
+WorkingDirectory=/opt/rito-inquiry/current
+EnvironmentFile=/etc/rito-inquiry/inquiry.env
+ExecStart=/usr/bin/node src/index.js
+Restart=on-failure
+RestartSec=5s
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

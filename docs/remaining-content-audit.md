@@ -9,7 +9,7 @@ Route/file: `/privacy/`, `privacy/index.html`.
 * [x] **Removed internal-status copy:** `Kurum kimliği ve başvuru e-posta adresine ilişkin doğrulanmış bilgiler bu metinde henüz tamamlanmamıştır.` No development-status replacement was added.
 * [x] **Corrected unavailable-feature title:** `İletişim Formu` / `Kişisel Verilerin Korunması Aydınlatma Metni` became the conservative current-state `Kişisel Verilerin Korunması ve Başvuru Bilgileri` page.
 * [x] **Verified entity integrated:** `Rito Mimarlik Proje Yonetim Ltd Sti` is now authoritative and displayed exactly as supplied.
-* [x] **Removed disabled-form contradiction:** the old `bu form aracılığıyla paylaştığınız ... işlenmektedir` statement was replaced with the truthful statement that the disabled form does not transmit personal data.
+* [x] **Removed form-state contradictions:** speculative processing language and the later disabled-form notice were replaced with the implemented facts of transient server receipt and email delivery without an application database/local archive.
 * [x] **Removed speculative processing-purpose claim:** the old `Kişisel verileriniz ... amacıyla işlenir` text is no longer presented as an active workflow fact.
 * [x] **Removed speculative collection/transfer claim:** `Toplanan veriler ... üçüncü şahıslarla paylaşılmaz` is no longer public; processor/transfer facts remain unresolved.
 * [x] **Replaced bracketed channel:** `[E-posta Adresiniz]` was removed and the verified designated contact `info@ritomimarlik.com` is displayed with a mail link in the application section.
@@ -46,11 +46,12 @@ Optional About-profile facts (founding history, credentials, references, team/or
 
 ## 4. Backend-Dependent Privacy Items
 
-* [x] Current page is limited to verified controller, rights, application information, and the truthful disabled-form state; it no longer claims an active form-processing workflow.
-* [ ] Define actual fields collected, server endpoint/provider, authorized recipients behind `proje@`, server/mail logs, storage, backups, retention/deletion, and security controls.
-* [ ] Identify every processor/recipient and any domestic or international transfer.
+* [x] Current page reflects the implemented active form without claiming a database or local archive.
+* [x] Actual fields, `/api/inquiry` endpoint, Node receiver, Zoho SMTP delivery, content-free operational logging, absent application database/local archive/queue, and transient in-memory rate-limit metadata are documented.
+* [ ] Confirm authorized recipients behind `proje@`, mailbox/provider retention and deletion, backups, operational access/security, processor roles, and domestic/international transfer facts.
+* [ ] Complete the legal analysis for Zoho/hosting and every processor/recipient or transfer.
 * [ ] Define the operational data-subject request and identity-verification workflow.
-* [ ] Reconcile the form checkbox (`kvkk-consent`) with its actual legal treatment before activation.
+* [ ] Reconcile the form checkbox (`kvkk-consent`) with its actual legal treatment; implementation preserves it as notice-read acknowledgement and does not declare explicit consent.
 
 ## 5. Claims Requiring Verification
 
@@ -70,9 +71,9 @@ The `RİTO / MİMARLIK` text wordmark is an intentional fallback, not broken bra
 
 ## 7. Already Clean / No Action
 
-* [x] `/about/`, `/services/`, `/contact/`, and `/404.html` contain no unresolved visitor-facing textual placeholder outside intentional form-input hints, the truthful disabled-form notice, and future branding/media dependencies.
+* [x] `/about/`, `/services/`, `/contact/`, and `/404.html` contain no unresolved visitor-facing textual placeholder outside intentional form-input hints and future branding/media dependencies.
 * [x] `/` has no non-media content placeholder; its visible temporary text is confined to known media slots.
 * [x] Verified contact information is consistent and personal mailboxes are absent.
 * [x] The four approved projects and their metadata are not placeholders.
-* [x] The form truthfully states that online transmission is inactive; this message is not a bug.
+* [x] The form now truthfully reports active submission states and never reports success before SMTP destination acceptance.
 * [x] Form input examples (`ornek@firma.com`, `05XX XXX XX XX`, location/message hints) are ordinary entry guidance, not company-data placeholders.

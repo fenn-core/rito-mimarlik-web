@@ -162,22 +162,23 @@ function checkFormSafety() {
   const formTag = contact.match(/<form\b[^>]*\bid=["']project-inquiry["'][^>]*>/i)?.[0] ?? "";
   const formAttrs = attributes(formTag.replace(/^<form\b|>$/gi, ""));
 
-  if (!formTag || formAttrs.get("data-submission-mode") !== "disabled") {
-    add("error", "unsafe-form-mode", "Project inquiry form must remain in disabled submission mode.", "contact/index.html");
+  if (!formTag || formAttrs.get("data-submission-mode") !== "active") {
+    add("error", "unsafe-form-mode", "Project inquiry form must use the active local API mode.", "contact/index.html");
   }
   if (formAttrs.has("action") || formAttrs.has("method")) {
-    add("error", "unsafe-form-target", "Disabled project inquiry form must not declare action or method.", "contact/index.html");
+    add("error", "unsafe-form-target", "JavaScript inquiry form must not declare action or method.", "contact/index.html");
   }
-  if (!/<button\b[^>]*\btype=["']button["'][^>]*\bdata-submission-trigger\b/i.test(contact)) {
-    add("error", "unsafe-form-trigger", "Safe non-submit inquiry trigger is missing.", "contact/index.html");
+  if (!/<button\b[^>]*\btype=["']submit["'][^>]*\bdata-submission-trigger\b/i.test(contact)) {
+    add("error", "unsafe-form-trigger", "Inquiry submit trigger is missing.", "contact/index.html");
   }
 
   const quoteScript = existsSync(scriptPath) ? readFileSync(scriptPath, "utf8") : "";
-  if (!/submissionMode\s*!==\s*["']disabled["']/.test(quoteScript) || !/preventDefault\s*\(/.test(quoteScript)) {
-    add("error", "missing-submit-guard", "Disabled-mode submit prevention is missing.", "js/quote-form.js");
+  if (!/preventDefault\s*\(/.test(quoteScript) || !/fetch\s*\(\s*["']\/api\/inquiry["']/.test(quoteScript)) {
+    add("error", "missing-inquiry-delivery", "Same-origin /api/inquiry submission is missing.", "js/quote-form.js");
   }
-  if (/\b(?:fetch|XMLHttpRequest|sendBeacon)\s*\(/.test(stripComments(quoteScript))) {
-    add("error", "unexpected-form-network", "Inquiry script contains an active network primitive.", "js/quote-form.js");
+  const networkCalls = [...stripComments(quoteScript).matchAll(/\b(?:fetch|XMLHttpRequest|sendBeacon)\s*\(/g)];
+  if (networkCalls.length !== 1 || /\b(?:XMLHttpRequest|sendBeacon)\s*\(/.test(stripComments(quoteScript))) {
+    add("error", "unexpected-form-network", "Inquiry script must use only one same-origin fetch call.", "js/quote-form.js");
   }
 }
 
@@ -351,8 +352,10 @@ try {
   ];
   for (const filePath of files) {
     const name = filePath.split(sep).at(-1);
+    const rel = toRelative(filePath);
+    if (!stagedMode && name === ".env.example" && rel === "server/inquiry/.env.example") continue;
     for (const [pattern, description] of sensitivePatterns) {
-      if (pattern.test(name)) add("error", "sensitive-file", `${stagedMode ? "Staged output" : "Repository"} contains a possible ${description}: ${toRelative(filePath)}`, toRelative(filePath));
+      if (pattern.test(name)) add("error", "sensitive-file", `${stagedMode ? "Staged output" : "Repository"} contains a possible ${description}: ${rel}`, rel);
     }
   }
 
@@ -378,7 +381,7 @@ try {
     routes: requiredPages.every((page) => existsSync(join(root, page))) ? "pass" : "error",
     localAssets: hasIssue("missing-reference", "missing-fragment", "reference-outside-root", "development-file-reference") ? "error" : "pass",
     cspSourceCompatibility: hasIssue("csp-inline-source") ? "error" : "pass",
-    formSafety: issues.some((issue) => issue.code.startsWith("unsafe-form") || ["missing-submit-guard", "unexpected-form-network"].includes(issue.code)) ? "error" : "pass",
+    formSafety: issues.some((issue) => issue.code.startsWith("unsafe-form") || ["missing-inquiry-delivery", "unexpected-form-network"].includes(issue.code)) ? "error" : "pass",
     sensitiveFiles: hasIssue("sensitive-file") ? "error" : "pass",
     publicOnlyTree: stagedMode && hasIssue("staged-development-leak", "staged-dotfile", "public-symlink") ? "error" : "pass",
     ...(stagedMode

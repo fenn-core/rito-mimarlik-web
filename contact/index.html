@@ -102,9 +102,12 @@
           </p>
         </aside>
 
-        <!-- Pre-backend mode: JavaScript validates locally and prevents all transmission. -->
-        <form id="project-inquiry" data-submission-mode="disabled"
+        <form id="project-inquiry" data-submission-mode="active"
           aria-describedby="required-fields-note submission-status">
+          <div class="form-honeypot" aria-hidden="true">
+            <label for="website">Bu alanı boş bırakın</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
           <fieldset class="form-section option-group">
             <legend>Talep Sahibi</legend>
             <div class="option-row">
@@ -208,17 +211,17 @@
           <div class="kvkk-group">
             <input type="checkbox" id="kvkk-consent" name="kvkk-consent" required />
             <label for="kvkk-consent">
-              <a href="/privacy/" target="_blank" rel="noopener">İletişim Formu Aydınlatma Metni</a>’ni okudum ve
+              <a href="/privacy/" target="_blank" rel="noopener">Kişisel Verilerin Korunması ve Başvuru Bilgileri</a> metnini okudum ve
               kişisel verilerimin işlenmesi hakkında bilgi edindim.
             </label>
           </div>
 
           <p class="submission-status" id="submission-status" role="status" aria-live="polite" aria-atomic="true">
-            Çevrimiçi gönderim henüz aktif değildir. Bu formda girdiğiniz bilgiler iletilmez.
+            Form gönderime hazırdır.
           </p>
 
           <div class="form-actions">
-            <button class="button button-primary" type="button" data-submission-trigger>Gönderimi Kontrol Et</button>
+            <button class="button button-primary" type="submit" data-submission-trigger>Proje Talebini Gönder</button>
           </div>
         </form>
       </div>

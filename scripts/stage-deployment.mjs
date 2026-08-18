@@ -150,11 +150,11 @@ async function assertSourceReadiness() {
 
   const contactHtml = await readFile(path.join(repositoryRoot, "contact/index.html"), "utf8");
   const formTag = contactHtml.match(/<form\b[^>]*\bid=["']project-inquiry["'][^>]*>/i)?.[0] ?? "";
-  if (!formTag || !/data-submission-mode=["']disabled["']/i.test(formTag)) {
-    throw new Error("Proje talep formu güvenli pre-backend modunda değil.");
+  if (!formTag || !/data-submission-mode=["']active["']/i.test(formTag)) {
+    throw new Error("Proje talep formu etkin API modunda değil.");
   }
   if (/\s(?:action|method)\s*=/i.test(formTag)) {
-    throw new Error("Devre dışı proje talep formunda iletim action/method özniteliği bulundu.");
+    throw new Error("JavaScript ile gönderilen proje talep formunda action/method özniteliği bulundu.");
   }
 }
 
