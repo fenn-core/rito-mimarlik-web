@@ -44,7 +44,7 @@ Honeypot hits receive the same generic `202` shape as real acceptance but never 
 
 ## SMTP and message safety
 
-Configuration comes only from the service environment; see `server/inquiry/.env.example`. Production uses Zoho SMTP on port 465 with TLS and certificate verification enabled. No startup email is sent.
+Configuration comes only from the service environment; see `server/inquiry/.env.example`. The European Zoho organization uses the allowlisted production host `smtp.zoho.eu` on port 465 with implicit TLS and certificate verification enabled. Authenticated SMTP verification and a real inquiry delivery to `proje@ritomimarlik.com` have succeeded through this host. No startup email is sent.
 
 The service fixes From to `Rito Mimarlık Web Formu <webform@ritomimarlik.com>` and To to `proje@ritomimarlik.com`. A validated visitor email becomes Reply-To; client data cannot set From, To, CC, BCC, or arbitrary headers. Single-line controls are rejected, the bounded subject component is stripped of CR/LF defensively, and all HTML values are escaped.
 

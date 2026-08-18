@@ -68,7 +68,7 @@ test("valid submission is normalized and accepted", () => {
 
 test("production configuration enforces loopback, fixed mailboxes, and implicit TLS", () => {
   const env = {
-    SMTP_HOST: "smtp.zoho.com",
+    SMTP_HOST: "smtp.zoho.eu",
     SMTP_PORT: "465",
     SMTP_SECURE: "true",
     SMTP_USER: "webform@ritomimarlik.com",
@@ -78,6 +78,7 @@ test("production configuration enforces loopback, fixed mailboxes, and implicit 
   assert.equal(loadConfig(env).host, "127.0.0.1");
   assert.throws(() => loadConfig({ ...env, INQUIRY_HOST: "0.0.0.0" }), /INQUIRY_HOST/);
   assert.throws(() => loadConfig({ ...env, SMTP_SECURE: "false" }), /SMTP_SECURE/);
+  assert.throws(() => loadConfig({ ...env, SMTP_HOST: "smtp.zoho.com" }), /SMTP_HOST/);
   assert.throws(() => loadConfig({ ...env, SMTP_USER: "personal@example.org" }), /SMTP_USER/);
   assert.throws(() => loadConfig({ ...env, INQUIRY_TO: "other@example.org" }), /INQUIRY_TO/);
 });

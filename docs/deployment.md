@@ -152,6 +152,8 @@ The frontend now posts JSON to same-origin `/api/inquiry`, and the standalone No
 
 Deploy the service separately under an unprivileged account, provide secrets through a protected EnvironmentFile, bind it to `127.0.0.1`, then add the exact `/api/inquiry` proxy and change CSP to `connect-src 'self'`. Do not expose the Node listener publicly or place SMTP credentials in the static release.
 
+The verified production SMTP route is `smtp.zoho.eu:465` with implicit TLS, authenticated as `webform@ritomimarlik.com` and delivering to `proje@ritomimarlik.com`. SMTP authentication verification and a real inquiry delivery have succeeded on this route; no credential or provider response detail is recorded in the repository.
+
 ## DNS coexistence
 
 Web DNS changes and email DNS records coexist in the same Cloudflare zone. Any later automation must touch only explicitly selected web-host records. It must not replace or delete MX, SPF TXT, DKIM TXT/CNAME or DMARC TXT records. Decide apex/`www` canonicalization, origin IP records, certificate issuance and DNS attachment only after the final hostname is confirmed.

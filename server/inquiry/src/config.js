@@ -18,6 +18,7 @@ export function loadConfig(env = process.env) {
   const secure = boolean(env.SMTP_SECURE, true, "SMTP_SECURE");
   if (host !== "127.0.0.1" && host !== "::1") throw new Error("invalid_config:INQUIRY_HOST");
   if (!secure) throw new Error("invalid_config:SMTP_SECURE");
+  if (env.SMTP_HOST !== "smtp.zoho.eu") throw new Error("invalid_config:SMTP_HOST");
   if (env.SMTP_USER !== "webform@ritomimarlik.com") throw new Error("invalid_config:SMTP_USER");
   if (env.INQUIRY_TO !== "proje@ritomimarlik.com") throw new Error("invalid_config:INQUIRY_TO");
   return {
