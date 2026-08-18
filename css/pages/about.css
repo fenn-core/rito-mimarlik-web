@@ -29,20 +29,29 @@
 }
 
 .about-hero-field {
-  position: relative;
-  display: flex;
+  display: grid;
   min-height: 5rem;
   grid-column: 1 / -1;
-  justify-content: space-between;
-  align-items: flex-end;
   margin-top: clamp(1rem, 3vw, 3rem);
-  padding: var(--space-3);
+  padding: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   border-block: 1px solid var(--color-border);
-  background:
-    linear-gradient(90deg, transparent 0 24.8%, var(--color-border) 24.8% 25%, transparent 25% 49.8%, var(--color-border) 49.8% 50%, transparent 50% 74.8%, var(--color-border) 74.8% 75%, transparent 75%);
+  list-style: none;
   color: var(--color-slate);
   font-size: var(--font-size-meta);
   letter-spacing: 0.16em;
+}
+
+.about-hero-field li {
+  display: flex;
+  min-width: 0;
+  align-items: flex-end;
+  padding: var(--space-3);
+  border-left: 1px solid var(--color-border);
+}
+
+.about-hero-field li:first-child {
+  border-left: 0;
 }
 
 .company-position {
@@ -254,6 +263,11 @@
   .sector-context-grid,
   .about-barrier-grid {
     grid-template-columns: 1fr;
+  }
+
+  .about-hero-field {
+    overflow-x: auto;
+    grid-template-columns: repeat(4, minmax(9rem, 1fr));
   }
 }
 
