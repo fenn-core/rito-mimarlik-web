@@ -29,19 +29,41 @@
 }
 
 .services-hero-field {
-  display: flex;
-  min-height: 5rem;
+  display: grid;
+  min-height: 7rem;
   grid-column: 1 / -1;
-  justify-content: space-between;
-  align-items: flex-end;
   margin-top: clamp(1rem, 3vw, 3rem);
-  padding: var(--space-3);
+  padding: 0;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border-block: 1px solid var(--color-border);
-  background:
-    linear-gradient(90deg, transparent 0 19.8%, var(--color-border) 19.8% 20%, transparent 20% 39.8%, var(--color-border) 39.8% 40%, transparent 40% 59.8%, var(--color-border) 59.8% 60%, transparent 60% 79.8%, var(--color-border) 79.8% 80%, transparent 80%);
+  list-style: none;
   color: var(--color-slate);
+}
+
+.services-hero-field li {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-3);
+  border-left: 1px solid var(--color-border);
+}
+
+.services-hero-field li:first-child {
+  border-left: 0;
+}
+
+.services-hero-field span {
   font-size: var(--font-size-meta);
   letter-spacing: 0.12em;
+}
+
+.services-hero-field strong {
+  max-width: 14rem;
+  color: var(--color-graphite);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 .service-areas {
@@ -277,6 +299,11 @@
 
   .lifecycle-heading {
     grid-template-columns: 1fr;
+  }
+
+  .services-hero-field {
+    overflow-x: auto;
+    grid-template-columns: repeat(5, minmax(9rem, 1fr));
   }
 
   .coordination-participants li {
