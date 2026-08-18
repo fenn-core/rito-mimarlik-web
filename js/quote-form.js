@@ -37,7 +37,10 @@ export function initializeQuoteForm() {
   }
 
   function setStatus(message) {
-    if (submissionStatus !== null) submissionStatus.textContent = message;
+    if (submissionStatus !== null) {
+      submissionStatus.textContent = message;
+      submissionStatus.hidden = message.length === 0;
+    }
   }
 
   function markInvalidFields(fields) {

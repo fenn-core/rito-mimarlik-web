@@ -10,9 +10,10 @@
   align-items: end;
 }
 
-.inquiry-introduction,
-.contact-information {
-  padding-block: clamp(2.75rem, 3.8vw, 4.25rem);
+.contact-overview {
+  padding-block: clamp(2.5rem, 3vw, 3.25rem);
+  border-top: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-sand) 20%, var(--color-ivory));
 }
 
 .inquiry-intro-grid {
@@ -36,11 +37,6 @@
   color: var(--color-slate);
 }
 
-.inquiry-introduction {
-  border-top: 1px solid var(--color-border);
-  background: color-mix(in srgb, var(--color-sand) 20%, var(--color-ivory));
-}
-
 .inquiry-intro-grid > div:last-child > p {
   max-width: 38rem;
   margin: 0 0 var(--space-3);
@@ -61,6 +57,8 @@
 }
 
 .contact-information {
+  margin-top: clamp(2.5rem, 3vw, 3.25rem);
+  padding-top: clamp(2rem, 2.5vw, 2.5rem);
   border-top: 1px solid var(--color-border);
 }
 
@@ -86,6 +84,7 @@
 
 .contact-details :is(dt, dd) {
   margin: 0;
+  padding-inline-start: 0;
 }
 
 .contact-details dt {
@@ -111,7 +110,7 @@
 }
 
 .inquiry-form-section {
-  padding-block: clamp(2.75rem, 3.8vw, 4.25rem);
+  padding-block: clamp(2.5rem, 3.2vw, 3.5rem);
   border-top: 1px solid var(--color-border);
 }
 
@@ -167,20 +166,9 @@
   border-top: 1px solid var(--color-border);
 }
 
-.form-honeypot {
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  opacity: 0;
-  pointer-events: none;
-  white-space: nowrap;
-  border: 0;
+.form-honeypot[hidden],
+.submission-status[hidden] {
+  display: none !important;
 }
 
 .form-section {
@@ -195,13 +183,19 @@
   display: none;
 }
 
-.form-section legend {
+.form-section > legend {
+  float: left;
+  width: 100%;
   margin-bottom: 1.25rem;
   padding: 0;
   color: var(--color-graphite);
   font-size: 1.02rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+}
+
+.form-section > legend + * {
+  clear: both;
 }
 
 .form-grid {

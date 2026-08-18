@@ -46,48 +46,50 @@
       </div>
     </section>
 
-    <section class="section inquiry-introduction" aria-labelledby="inquiry-intro-title">
-      <div class="container inquiry-intro-grid">
-        <div>
-          <p class="section-kicker">Proje Talebi</p>
-          <h2 class="display-title" id="inquiry-intro-title">İlk değerlendirme için temel bilgiler</h2>
+    <section class="contact-overview" aria-labelledby="inquiry-intro-title">
+      <div class="container contact-overview-inner">
+        <div class="inquiry-intro-grid">
+          <div>
+            <p class="section-kicker">Proje Talebi</p>
+            <h2 class="display-title" id="inquiry-intro-title">İlk değerlendirme için temel bilgiler</h2>
+          </div>
+          <div>
+            <p>Talebinizde aşağıdaki bilgileri paylaşmanız, proje kapsamının anlaşılmasına yardımcı olur.</p>
+            <ul>
+              <li>Proje türü ve bulunduğu yer</li>
+              <li>Projenin mevcut aşaması</li>
+              <li>İhtiyaç duyulan hizmet ve koordinasyon kapsamı</li>
+              <li>Proje gereksinimlerinin kısa açıklaması</li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <p>Talebinizde aşağıdaki bilgileri paylaşmanız, proje kapsamının anlaşılmasına yardımcı olur.</p>
-          <ul>
-            <li>Proje türü ve bulunduğu yer</li>
-            <li>Projenin mevcut aşaması</li>
-            <li>İhtiyaç duyulan hizmet ve koordinasyon kapsamı</li>
-            <li>Proje gereksinimlerinin kısa açıklaması</li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
-    <section class="section contact-information" aria-labelledby="contact-information-title">
-      <div class="container contact-information-grid">
-        <header>
-          <p class="section-kicker">İletişim Bilgileri</p>
-          <h2 class="display-title" id="contact-information-title">Rito Mimarlık ile iletişime geçin.</h2>
-        </header>
-        <dl class="contact-details">
-          <div>
-            <dt>Genel E-posta</dt>
-            <dd><a href="mailto:info@ritomimarlik.com">info@ritomimarlik.com</a></dd>
+        <section class="contact-information" aria-labelledby="contact-information-title">
+          <div class="contact-information-grid">
+            <header>
+              <p class="section-kicker">İletişim Bilgileri</p>
+              <h2 class="display-title" id="contact-information-title">Rito Mimarlık ile iletişime geçin.</h2>
+            </header>
+            <dl class="contact-details">
+              <div>
+                <dt>Genel E-posta</dt>
+                <dd><a href="mailto:info@ritomimarlik.com">info@ritomimarlik.com</a></dd>
+              </div>
+              <div>
+                <dt>Telefon</dt>
+                <dd><a href="tel:+905333546915">+90 533 354 69 15</a></dd>
+              </div>
+              <div>
+                <dt>Adres</dt>
+                <dd><address>Yunus Mah. Kasımpatı Sk. No: 49, Daire: 7<br />Kartal / İstanbul</address></dd>
+              </div>
+              <div>
+                <dt>Çalışma Saatleri</dt>
+                <dd>Pazartesi–Cuma, 10:00–18:00</dd>
+              </div>
+            </dl>
           </div>
-          <div>
-            <dt>Telefon</dt>
-            <dd><a href="tel:+905333546915">+90 533 354 69 15</a></dd>
-          </div>
-          <div>
-            <dt>Adres</dt>
-            <dd><address>Yunus Mah. Kasımpatı Sk. No: 49, Daire: 7<br />Kartal / İstanbul</address></dd>
-          </div>
-          <div>
-            <dt>Çalışma Saatleri</dt>
-            <dd>Pazartesi–Cuma, 10:00–18:00</dd>
-          </div>
-        </dl>
+        </section>
       </div>
     </section>
 
@@ -104,7 +106,7 @@
 
         <form id="project-inquiry" data-submission-mode="active"
           aria-describedby="required-fields-note submission-status">
-          <div class="form-honeypot" aria-hidden="true">
+          <div class="form-honeypot" aria-hidden="true" hidden>
             <label for="website">Bu alanı boş bırakın</label>
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
           </div>
@@ -216,9 +218,7 @@
             </label>
           </div>
 
-          <p class="submission-status" id="submission-status" role="status" aria-live="polite" aria-atomic="true">
-            Form gönderime hazırdır.
-          </p>
+          <p class="submission-status" id="submission-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
 
           <div class="form-actions">
             <button class="button button-primary" type="submit" data-submission-trigger>Proje Talebini Gönder</button>
