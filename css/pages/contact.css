@@ -2,8 +2,7 @@
   padding-block: clamp(2.75rem, 3.8vw, 4rem) clamp(2.5rem, 3.4vw, 3.75rem);
 }
 
-.contact-hero-grid,
-.inquiry-intro-grid {
+.contact-hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(19rem, 0.6fr);
   gap: clamp(2.5rem, 6vw, 7rem);
@@ -14,11 +13,6 @@
   padding-block: clamp(2.5rem, 3vw, 3.25rem);
   border-top: 1px solid var(--color-border);
   background: color-mix(in srgb, var(--color-sand) 20%, var(--color-ivory));
-}
-
-.inquiry-intro-grid {
-  grid-template-columns: minmax(0, 1.15fr) minmax(24rem, 0.85fr);
-  align-items: center;
 }
 
 .contact-hero h1 {
@@ -37,40 +31,40 @@
   color: var(--color-slate);
 }
 
-.inquiry-intro-grid > div:last-child > p {
-  max-width: 38rem;
-  margin: 0 0 var(--space-3);
+.contact-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: start;
+}
+
+.inquiry-intro > p {
+  max-width: 44rem;
+  margin: var(--space-5) 0 var(--space-3);
   color: var(--color-slate);
 }
 
-.inquiry-intro-grid ul {
+.inquiry-intro ul {
   margin: 0;
   padding: 0;
   border-top: 1px solid var(--color-border);
   list-style: none;
 }
 
-.inquiry-intro-grid li {
+.inquiry-intro li {
   padding-block: 0.65rem;
   border-bottom: 1px solid var(--color-border);
   font-size: var(--font-size-small);
 }
 
 .contact-information {
-  margin-top: clamp(2.5rem, 3vw, 3.25rem);
-  padding-top: clamp(2rem, 2.5vw, 2.5rem);
-  border-top: 1px solid var(--color-border);
-}
-
-.contact-information-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(28rem, 1.1fr);
-  gap: clamp(2.5rem, 6vw, 7rem);
-  align-items: start;
+  min-width: 0;
 }
 
 .contact-info-table {
   width: 100%;
+  max-width: none;
+  margin: var(--space-5) 0 0;
   border-top: 1px solid var(--color-border);
   border-collapse: collapse;
   table-layout: fixed;
@@ -351,8 +345,7 @@
 
 @media (max-width: 58rem) {
   .contact-hero-grid,
-  .inquiry-intro-grid,
-  .contact-information-grid,
+  .contact-overview-grid,
   .inquiry-layout {
     grid-template-columns: 1fr;
   }
