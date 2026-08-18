@@ -112,6 +112,16 @@ Occurrences: `/` selected project 2 (`home-project-02`) and `/projects/` index p
 * [x] Homepage selected order is Marmaray Pendik–Çerkezköy Banliyö Hattı, Galataport İstanbul, Acun Medya Alaçatı.
 * [ ] Any future detail page must use only verified title/category, metadata, main image, project context, Rito role, scope/process, optional additional media, related projects, and inquiry link.
 
+### Public scaffolding copy found in second-pass audit
+
+These are not project-fact gaps; they are visible internal/future-state wording that should receive a later copy cleanup without changing approved project metadata.
+
+* [ ] Review `/projects/` hero text `doğrulanmış proje seçkisini sunmak üzere yapılandırılmıştır`; it describes the page as a constructed verification framework rather than presenting the portfolio directly.
+* [ ] Review portfolio-introduction text ending `doğrulanmış rol ve kapsam bilgileriyle birlikte sunulacaktır`; verified projects are already displayed, so the future tense is stale.
+* [ ] Replace the internal-QA sentence `Proje kartlarında doğrulanmış kapsam, rol ve durum bilgileri yer alır.` with visitor-facing copy or omit it.
+* [ ] Review `Gürültü bariyeri uygulamaları, proje seçkisinde ayrı ve görünür bir çalışma alanı olarak ele alınacaktır.`; the specialization is already visible, making the future tense stale.
+* [ ] Remove or revise the public roadmap language `Gelecekteki proje sayfaları ... bilgi düzeni kullanacaktır.` and its verification-oriented documentation labels unless detail pages are actually approved.
+
 ## 3. Media / photographs
 
 All 13 documented `data-media-slot` IDs exist once in markup and once in `docs/media-manifest.md`; none is populated. No real media assets exist. The seven project-card slots are now associated with verified projects, but their authentic assets remain unresolved.
@@ -275,13 +285,13 @@ Current state on all eight public documents: temporary text wordmark `RİTO / M�
 
 The `/about/` source intentionally withholds an empty `verified-company-profile` template from rendering.
 
-* [ ] Verify the exact legal company name and spelling. `Rito Mimarlik Proje Yonetim Ltd Sti` appears only in `/privacy/` and is **UNVERIFIED FACT — must not remain as fact without confirmation**.
+* [x] Verified legal entity/data-controller name integrated exactly as supplied: `Rito Mimarlik Proje Yonetim Ltd Sti`.
 * [ ] Supply founding/history information if it will be published, or confirm omission (**ABSENT / OPTIONAL FUTURE CONTENT**).
 * [ ] Supply qualifications, certifications, licenses, registrations, or other credentials only with evidence and approved wording, or confirm omission (**ABSENT / OPTIONAL FUTURE CONTENT**).
 * [ ] Supply client/reference names and permission only if a reference section is wanted, or confirm omission (**ABSENT / OPTIONAL FUTURE CONTENT**).
 * [ ] Supply team/organization facts and approved public names/roles only if wanted, or confirm omission (**ABSENT / OPTIONAL FUTURE CONTENT**).
 * [ ] Confirm the scope of public/private-sector experience wording before final review; the positioning is supplied, but individual project proof and responsibility boundaries still depend on verified case studies.
-* [x] No founding year, years-in-business number, team-size number, award, named client, named reference, or office-location claim is currently rendered.
+* [x] No founding year, years-in-business number, team-size number, award, or unapproved reference claim is currently rendered; verified project clients and the verified business address are now public.
 
 ## 6. Noise-barrier claims requiring verification
 
@@ -316,10 +326,11 @@ Current source: `/contact/#project-inquiry`, `js/quote-form.js`, and `docs/inqui
 
 ## 8. Privacy/legal dependencies
 
-Route: `/privacy/`; related contract: `docs/inquiry-submission.md`. This is an audit, not legal advice. The current policy visibly warns that company identity and application email are incomplete, but it also states unverified facts below that warning.
+Route: `/privacy/`; related contract: `docs/inquiry-submission.md`. This is an audit, not legal advice. Verified identity and application contacts are integrated; future form-processing facts and substantive legal completeness remain unresolved.
 
-* [ ] **TEXTUAL PLACEHOLDER:** replace `[E-posta Adresiniz]` with the verified data-subject application channel; decide whether that is `info@`, another role address, or a legally required channel.
-* [ ] **FACT REQUIRING VERIFICATION:** confirm the legal entity/data-controller identity; current `Rito Mimarlik Proje Yonetim Ltd Sti` is unverified and lacks confirmed legal spelling/characters.
+* [x] Formal electronic KVKK/data-subject application contact verified and integrated as `info@ritomimarlik.com`; literal `[E-posta Adresiniz]` removed.
+* [x] Legal entity/data-controller identity verified and integrated exactly as `Rito Mimarlik Proje Yonetim Ltd Sti`.
+* [x] Formal written/application address verified and integrated: Yunus Mah. Kasımpatı Sk. No: 49, Daire: 7; Kartal / İstanbul.
 * [ ] **FACT REQUIRING VERIFICATION:** confirm the data categories actually collected once the backend exists; current list is name, email, phone, and project details, while the documented payload also includes organization/role, preferences, location, message, and acknowledgement.
 * [ ] **FACT REQUIRING VERIFICATION + LEGAL REVIEW REQUIRED:** verify processing purposes (“inquiry evaluation, contact, quotation, service processes”) against the actual workflow.
 * [ ] **FACT REQUIRING VERIFICATION + LEGAL REVIEW REQUIRED:** verify the statement that data is not shared with third parties except for legal obligations; future hosting, mail, security, or delivery providers may contradict it.
@@ -329,12 +340,20 @@ Route: `/privacy/`; related contract: `docs/inquiry-submission.md`. This is an a
 * [ ] **FACT REQUIRING VERIFICATION:** confirm whether cookies, analytics, embedded maps, remote fonts/media, or other third-party services exist at activation time. None is evident in the current public source, but future additions change the policy.
 * [ ] **DEPENDENT ON FUTURE BACKEND:** reconcile policy wording with actual server response and operational inquiry handling before changing `data-submission-mode`.
 
+### Second-pass omissions found 2026-08-18
+
+* [x] Removed the visible internal-status warning `Kurum kimliği ve başvuru e-posta adresine ilişkin doğrulanmış bilgiler bu metinde henüz tamamlanmamıştır.` without replacing it with development language.
+* [x] Removed the present-tense form-processing claim and replaced it with the truthful current state: the disabled form does not transmit personal data.
+* [x] Removed speculative active-purpose and no-third-party-sharing claims from the public page; future workflow facts remain unresolved below.
+* [x] Reframed the page as current `Kişisel Verilerin Korunması ve Başvuru Bilgileri`, not a finalized active-form notice.
+* [ ] Have qualified counsel assess notice completeness, including collection method, lawful basis, recipient/transfer detail, retention, data-controller contact/address requirements, and the complete data-subject application procedure; these elements are absent or incomplete in the current three-section text.
+
 ## 9. Global repeated content
 
 Affected files/routes for the shared header/footer: `index.html` (`/`), `about/index.html`, `services/index.html`, `projects/index.html`, `noise-barriers/index.html`, `contact/index.html`, `privacy/index.html`, and `404.html`.
 
 * [x] Grouped footer address, telephone, and email placeholders were replaced consistently on all eight documents.
-* [ ] Replace the grouped header/footer text wordmark only after final brand files are approved; identical brand treatment occurs on all eight documents.
+* [x] The grouped `RİTO / MİMARLIK` header/footer wordmark is an intentional accessible fallback; final logo/favicon assets remain optional future brand work.
 * [ ] Review the footer descriptor trio (“Mimari danışmanlık / Proje koordinasyonu / Gürültü bariyerleri”) against final approved service language; it is currently safe positioning, not a placeholder fact.
 * [ ] Confirm global “Proje Talebi” and related “Projenizi Görüşelim” CTA wording once the real intake path is operational; links correctly reach the currently disabled form but cannot yet transmit.
 * [ ] Decide whether the hardcoded `© 2026 Rito Mimarlık` should be maintained manually or made dynamic in a later implementation pass; legal entity attribution depends on the verified company identity.
