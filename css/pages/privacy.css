@@ -1,5 +1,5 @@
 .privacy-hero {
-  padding-block: clamp(3rem, 5vw, 5rem);
+  padding-block: clamp(2.75rem, 3.8vw, 4rem);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -17,16 +17,16 @@
 }
 
 .privacy-content-section {
-  padding-block: clamp(3.25rem, 5vw, 5.25rem);
+  padding-block: clamp(2.75rem, 3.8vw, 4.25rem);
 }
 
 .privacy-content {
-  max-width: var(--measure-narrow);
+  max-width: 96ch;
 }
 
 .privacy-content > header {
-  margin-bottom: var(--space-6);
-  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -41,26 +41,29 @@
 
 .privacy-content h2 {
   margin: 0 0 var(--space-3);
-  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-size: clamp(1.3rem, 1.6vw, 1.7rem);
   font-weight: 500;
   line-height: 1.3;
 }
 
 .privacy-content > section {
-  margin-top: var(--space-5);
+  margin-top: var(--space-6);
   padding-top: var(--space-4);
   border-top: 1px solid var(--color-border);
 }
 
 .privacy-content > section h2 {
-  font-size: 1rem;
+  margin-bottom: var(--space-3);
+  font-size: 1.08rem;
+  font-weight: 600;
 }
 
 .privacy-content p {
+  max-width: 82ch;
   margin: 0;
   color: var(--color-graphite);
-  font-size: 0.92rem;
-  line-height: 1.8;
+  font-size: clamp(0.94rem, 0.18vw + 0.9rem, 1.02rem);
+  line-height: 1.75;
 }
 
 .privacy-content strong {
@@ -74,15 +77,15 @@
 }
 
 .privacy-content dl {
-  margin: 0 0 var(--space-4);
+  margin: 0 0 var(--space-5);
   border-top: 1px solid var(--color-border);
 }
 
 .privacy-content dl > div {
   display: grid;
-  padding-block: var(--space-3);
+  padding-block: 1.15rem;
   border-bottom: 1px solid var(--color-border);
-  grid-template-columns: minmax(9rem, 0.7fr) minmax(0, 1.3fr);
+  grid-template-columns: minmax(13rem, 0.72fr) minmax(0, 1.28fr);
   gap: var(--space-4);
 }
 
@@ -100,9 +103,9 @@
 
 .privacy-content dd,
 .privacy-content address {
-  font-size: var(--font-size-small);
+  font-size: 1rem;
   font-style: normal;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 @media (max-width: 38rem) {

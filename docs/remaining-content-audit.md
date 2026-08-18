@@ -47,7 +47,7 @@ Optional About-profile facts (founding history, credentials, references, team/or
 ## 4. Backend-Dependent Privacy Items
 
 * [x] Current page reflects the implemented active form without claiming a database or local archive.
-* [x] Actual fields, `/api/inquiry` endpoint, Node receiver, Zoho SMTP delivery, content-free operational logging, absent application database/local archive/queue, and transient in-memory rate-limit metadata are documented.
+* [x] Actual fields and the live path `/api/inquiry` → nginx → enabled loopback Node service → Zoho EU SMTP → `proje@` are documented and production-tested; content-free operational logging, absent application database/local archive/queue, and transient in-memory rate-limit metadata remain established facts.
 * [ ] Confirm authorized recipients behind `proje@`, mailbox/provider retention and deletion, backups, operational access/security, processor roles, and domestic/international transfer facts.
 * [ ] Complete the legal analysis for Zoho/hosting and every processor/recipient or transfer.
 * [ ] Define the operational data-subject request and identity-verification workflow.

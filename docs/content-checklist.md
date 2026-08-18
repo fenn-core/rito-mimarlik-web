@@ -310,7 +310,7 @@ On `/noise-barriers/`, plus related wording on `/`, `/about/`, `/services/`, `/p
 
 ## 7. Contact-form dependencies
 
-Current source: `/contact/#project-inquiry`, `js/quote-form.js`, `server/inquiry/`, and `docs/inquiry-submission.md`. The active form posts JSON to same-origin `/api/inquiry`; the loopback Node service validates it and sends transiently generated mail through authenticated Zoho SMTP. No application database, local inquiry archive, file spool, or persistent queue exists.
+Current source: `/contact/#project-inquiry`, `js/quote-form.js`, `server/inquiry/`, and `docs/inquiry-submission.md`. The active form posts JSON to same-origin `/api/inquiry`; production nginx proxies that exact route to the enabled loopback `rito-inquiry.service`, which validates the payload and sends transiently generated mail through authenticated Zoho EU SMTP. No application database, local inquiry archive, file spool, or persistent queue exists.
 
 * [x] Active mail destination is `proje@ritomimarlik.com`; authenticated SMTP identity is `webform@ritomimarlik.com`.
 * [x] Field names in markup and server schema match: `customer-type`, `full-name`, `email`, `phone`, `contact-method`, `company-name`, `company-role`, `requested-service`, `project-type`, `address`, `message`, `kvkk-consent`, plus the anti-spam `website` honeypot.
@@ -319,10 +319,11 @@ Current source: `/contact/#project-inquiry`, `js/quote-form.js`, `server/inquiry
 * [ ] Confirm required/optional rules, especially telephone when phone is preferred, business organization name, and whether individual inquiries are accepted.
 * [ ] Review example placeholders (`ornek@firma.com`, `05XX XXX XX XX`, project-location and message hints) as final user-facing guidance; they are demonstrative, not company facts.
 * [x] Implemented `POST /api/inquiry`, stable JSON responses, authoritative validation, body limit, Origin enforcement, honeypot, in-memory rate limiting, and Zoho SMTP delivery without persistent retries.
+* [x] Production path verified: nginx exact-route proxy → `127.0.0.1:8787` → enabled `rito-inquiry.service` → `smtp.zoho.eu:465` → `webform@` → `proje@`; authentication and real form-message delivery succeeded.
 * [ ] Confirm authorized people/access behind `proje@`, response ownership, mailbox retention/deletion, and operational failure monitoring.
 * [x] Implemented honest PENDING, SUCCESS, validation, rate-limit, and delivery-error states; success requires SMTP acceptance and only success resets the form.
 * [ ] Reconcile the checkbox wording and whether it records notice acknowledgement or consent with qualified KVKK review; the current `kvkk-consent` name/legal treatment is provisional.
-* [ ] Complete qualified privacy/KVKK review in section 8 before production deployment with real submissions.
+* [ ] Complete qualified privacy/KVKK review in section 8; production activation does not resolve the outstanding legal questions.
 
 ## 8. Privacy/legal dependencies
 
@@ -334,7 +335,7 @@ Route: `/privacy/`; related contract: `docs/inquiry-submission.md`. This is an a
 * [x] **IMPLEMENTED FACT:** received fields are documented exactly: requester type/name, email, optional/conditional phone, contact preference, conditional organization/role, requested service, project type, optional project location, message, notice acknowledgement, and an empty honeypot.
 * [ ] **FACT REQUIRING VERIFICATION + LEGAL REVIEW REQUIRED:** verify processing purposes (“inquiry evaluation, contact, quotation, service processes”) against the actual workflow.
 * [ ] **FACT REQUIRING VERIFICATION + LEGAL REVIEW REQUIRED:** verify the statement that data is not shared with third parties except for legal obligations; future hosting, mail, security, or delivery providers may contradict it.
-* [x] **IMPLEMENTED FACT:** the Node service sends through Zoho SMTP from `webform@` to `proje@`; it has no application database, persistent queue, file spool, local archive, or content-bearing operational logs, and rate-limit metadata is transient/in-memory.
+* [x] **IMPLEMENTED + LIVE-VERIFIED FACT:** the enabled loopback Node service sends through `smtp.zoho.eu:465` from `webform@` to `proje@`; nginx routing, SMTP authentication, and real form-message delivery succeeded. The application has no database, persistent queue, file spool, local archive, or content-bearing operational logs, and rate-limit metadata is transient/in-memory.
 * [ ] **FACT + LEGAL REVIEW REQUIRED:** identify authorized recipients behind `proje@`, hosting/mail processor roles and transfer locations, recipient/provider mailbox retention and deletion, backups, and the complete operational security/account-access model.
 * [ ] **LEGAL REVIEW REQUIRED:** identify the lawful basis, required notice content, data-subject request process, identity verification, response workflow, and whether consent is appropriate.
 * [ ] **LEGAL REVIEW REQUIRED:** review the rights summary and the complete notice under applicable KVKK requirements before production processing.
@@ -356,7 +357,7 @@ Affected files/routes for the shared header/footer: `index.html` (`/`), `about/i
 * [x] Grouped footer address, telephone, and email placeholders were replaced consistently on all eight documents.
 * [x] The grouped `RİTO / MİMARLIK` header/footer wordmark is an intentional accessible fallback; final logo/favicon assets remain optional future brand work.
 * [ ] Review the footer descriptor trio (“Mimari danışmanlık / Proje koordinasyonu / Gürültü bariyerleri”) against final approved service language; it is currently safe positioning, not a placeholder fact.
-* [x] Global “Proje Talebi” and related “Projenizi Görüşelim” CTAs reach the now-active inquiry form; delivery still depends on completing the separate production service/nginx activation.
+* [x] Global “Proje Talebi” and related “Projenizi Görüşelim” CTAs reach the active inquiry form; its production Node/nginx/SMTP delivery path is operational.
 * [ ] Decide whether the hardcoded `© 2026 Rito Mimarlık` should be maintained manually or made dynamic in a later implementation pass; legal entity attribution depends on the verified company identity.
 * [x] Header/footer navigation destinations are consistent and no empty/hash/example navigation link was found.
 * [x] `404.html` has no route-specific factual placeholder beyond the shared footer/brand/CTA dependencies.

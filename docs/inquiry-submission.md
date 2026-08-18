@@ -58,17 +58,15 @@ The UI implements IDLE, PENDING, SUCCESS, validation failure, rate-limit failure
 
 ## Operations and deployment boundary
 
-The Node service is independently installed from `server/inquiry/` with `npm ci --omit=dev` and started from `src/index.js`. The example systemd unit recommends an unprivileged `rito-inquiry` account, `/opt/rito-inquiry/current` working directory, `/etc/rito-inquiry/inquiry.env` protected EnvironmentFile, loopback port 8787, restart-on-failure, and journal-only operational logging. Do not place secrets in the unit.
+The production Node service is installed at `/opt/rito-inquiry/current`, reads its protected environment from `/etc/rito-inquiry/inquiry.env`, and runs as the enabled `rito-inquiry.service` systemd unit. It binds only to `127.0.0.1:8787`; its health endpoint remains loopback-only. The repository example unit retains the unprivileged service-account, restart-on-failure, and journal-only operational-logging model. No secret belongs in the unit or repository.
 
-The repository nginx template remains deliberately static and is not activated for the API by this implementation. Before live activation, a reviewed nginx change must:
+The tested production path is:
 
-1. Route exact `POST /api/inquiry` to `http://127.0.0.1:8787` and preserve the original same-origin `Origin` header.
-2. Replace—not append—the proxy client-IP header from nginx's trusted/restored client address.
-3. Allow POST only on that exact API route while retaining GET/HEAD restrictions elsewhere.
-4. Permit same-origin Fetch by changing CSP `connect-src 'none'` to `connect-src 'self'`.
-5. Proxy `GET /health` only internally if operational monitoring requires it; it need not be public.
+`Browser → /api/inquiry → nginx → 127.0.0.1:8787 → rito-inquiry.service → smtp.zoho.eu:465 → webform@ritomimarlik.com → proje@ritomimarlik.com`
 
-Static staging excludes `server/`, environment files, and `node_modules`; the service must be deployed separately. Live activation, SMTP-secret installation, systemd enablement, nginx proxy installation, and a controlled SMTP delivery test remain explicit production actions.
+nginx proxies only the exact `/api/inquiry` location, replaces the forwarded client-IP header with its trusted/restored `$remote_addr`, and permits same-origin Fetch with `connect-src 'self'`. The checked-in deployment template now mirrors this verified contract. Static staging still excludes `server/`, environment files, and `node_modules`; application-service releases remain operationally separate from public static releases.
+
+The systemd service, nginx-to-Node route, SMTP authentication, and real form-message delivery are operational and have been tested successfully. The repository records no SMTP secret, sensitive provider response, or personal test address.
 
 ## Privacy and legal boundary
 

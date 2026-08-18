@@ -96,13 +96,13 @@ The nginx HTTPS server applies these headers with `always`, including error resp
 
 | Header | Active value |
 | --- | --- |
-| `Content-Security-Policy` | `default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; frame-src 'none'; form-action 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; media-src 'self'; worker-src 'none'; upgrade-insecure-requests` |
+| `Content-Security-Policy` | `default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; frame-src 'none'; form-action 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; worker-src 'none'; upgrade-insecure-requests` |
 | `X-Content-Type-Options` | `nosniff` |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` |
 | `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=(), usb=()` |
 | `X-Frame-Options` | `DENY` (legacy reinforcement for `frame-ancestors 'none'`) |
 
-Cache locations use nginx `expires` rather than child `add_header` directives. This deliberately preserves inheritance of the server-level security headers. The checked-in static-only template still uses `form-action 'none'` and `connect-src 'none'`; the active inquiry frontend requires the separately reviewed same-origin API/CSP adapter described below before production activation.
+Cache locations use nginx `expires` rather than child `add_header` directives. This deliberately preserves inheritance of the server-level security headers. `form-action 'none'` remains because delivery uses JavaScript JSON rather than native form navigation; `connect-src 'self'` permits only the same-origin inquiry request.
 
 ## Cache and compression
 
@@ -146,13 +146,15 @@ nginx needs read/traverse access to the release tree, never write access. Use or
 
 The exact transfer/login commands are deferred until server access details are known. The stable `current` path keeps nginx configuration independent of release IDs.
 
-## Inquiry API deployment boundary
+## Inquiry API production runtime
 
-The frontend now posts JSON to same-origin `/api/inquiry`, and the standalone Node service is implemented under `server/inquiry/`. The checked-in nginx template remains static-only: it still blocks POST globally, has no `proxy_pass`, and uses `connect-src 'none'`. It must not be installed as an active-form configuration without the reviewed API adapter described in `docs/inquiry-submission.md`.
+The verified runtime path is:
 
-Deploy the service separately under an unprivileged account, provide secrets through a protected EnvironmentFile, bind it to `127.0.0.1`, then add the exact `/api/inquiry` proxy and change CSP to `connect-src 'self'`. Do not expose the Node listener publicly or place SMTP credentials in the static release.
+`Browser → /api/inquiry → nginx → 127.0.0.1:8787 → rito-inquiry.service → smtp.zoho.eu:465 → webform@ritomimarlik.com → proje@ritomimarlik.com`
 
-The verified production SMTP route is `smtp.zoho.eu:465` with implicit TLS, authenticated as `webform@ritomimarlik.com` and delivering to `proje@ritomimarlik.com`. SMTP authentication verification and a real inquiry delivery have succeeded on this route; no credential or provider response detail is recorded in the repository.
+nginx proxies exactly `/api/inquiry` to the loopback service using the contract in `deploy/nginx/rito-mimarlik.conf.template`. `GET /health` is not proxied and remains loopback-only. The service runs from `/opt/rito-inquiry/current`, reads `/etc/rito-inquiry/inquiry.env`, and is enabled as `rito-inquiry.service`.
+
+The nginx-to-Node route, systemd service, Zoho EU SMTP authentication, and real form-message delivery have all succeeded in production. No credential, sensitive SMTP response, or personal test address is recorded in the repository.
 
 ## DNS coexistence
 

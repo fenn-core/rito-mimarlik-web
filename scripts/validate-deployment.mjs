@@ -231,14 +231,38 @@ function checkNginxAdapter() {
       `${header} is missing or does not use always.`,
     );
   }
-  for (const directive of ["form-action 'none'", "connect-src 'none'", "frame-ancestors 'none'"]) {
+  for (const directive of ["form-action 'none'", "connect-src 'self'", "frame-ancestors 'none'"]) {
     if (!nginx.includes(directive)) add("error", "nginx-csp-policy", `CSP is missing ${directive}.`, "deploy/nginx/rito-mimarlik.conf.template");
   }
   if (/try_files[^;]*\/index\.html/i.test(nginx) || /error_page\s+404\s+=200/i.test(nginx)) {
     add("error", "nginx-spa-fallback", "nginx template contains a homepage/HTTP-200 fallback.", "deploy/nginx/rito-mimarlik.conf.template");
   }
-  if (/\bproxy_pass\b|\bupstream\s+[^{]+\{|location\s+(?:=|\^~|~\*?)?\s*\/api(?:\/|\s|\{)/i.test(nginx)) {
-    add("error", "nginx-active-backend", "nginx template must not activate an API/upstream.", "deploy/nginx/rito-mimarlik.conf.template");
+  const inquiryLocations = [...nginx.matchAll(/location\s*=\s*\/api\/inquiry\s*\{([\s\S]*?)\n\s*\}/g)];
+  if (inquiryLocations.length !== 1) {
+    add("error", "nginx-inquiry-location", "nginx template must contain exactly one exact /api/inquiry location.", "deploy/nginx/rito-mimarlik.conf.template");
+  } else {
+    const inquiry = inquiryLocations[0][1];
+    const inquiryPatterns = [
+      [/client_max_body_size\s+32k\s*;/, "32 KiB client body limit"],
+      [/proxy_pass\s+http:\/\/127\.0\.0\.1:8787\/api\/inquiry\s*;/, "loopback inquiry proxy target"],
+      [/proxy_http_version\s+1\.1\s*;/, "HTTP/1.1 proxy mode"],
+      [/proxy_set_header\s+Host\s+\$host\s*;/, "Host forwarding"],
+      [/proxy_set_header\s+X-Real-IP\s+\$remote_addr\s*;/, "real-IP forwarding"],
+      [/proxy_set_header\s+X-Forwarded-For\s+\$remote_addr\s*;/, "trusted forwarded-IP replacement"],
+      [/proxy_set_header\s+X-Forwarded-Proto\s+\$scheme\s*;/, "scheme forwarding"],
+      [/proxy_connect_timeout\s+5s\s*;/, "connect timeout"],
+      [/proxy_send_timeout\s+15s\s*;/, "send timeout"],
+      [/proxy_read_timeout\s+30s\s*;/, "read timeout"],
+    ];
+    for (const [pattern, label] of inquiryPatterns) {
+      if (!pattern.test(inquiry)) add("error", "nginx-inquiry-contract", `Inquiry proxy is missing ${label}.`, "deploy/nginx/rito-mimarlik.conf.template");
+    }
+  }
+  if ((nginx.match(/\bproxy_pass\b/g) ?? []).length !== 1 || /\bupstream\s+[^{]+\{/i.test(nginx)) {
+    add("error", "nginx-unexpected-backend", "nginx template contains an unexpected additional backend.", "deploy/nginx/rito-mimarlik.conf.template");
+  }
+  if (/location\s+(?:=\s*)?\/health(?:\s|\{)/i.test(nginx) || /proxy_pass[^;]*\/health/i.test(nginx)) {
+    add("error", "nginx-public-health", "The inquiry health endpoint must remain loopback-only.", "deploy/nginx/rito-mimarlik.conf.template");
   }
   if (/add_header\s+Cache-Control/i.test(nginx)) {
     add("error", "nginx-header-inheritance", "Cache locations must not add headers that suppress inherited security headers.", "deploy/nginx/rito-mimarlik.conf.template");
