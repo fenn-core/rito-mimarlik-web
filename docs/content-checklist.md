@@ -34,83 +34,87 @@ Input-like examples inside the form (`ornek@firma.com`, `05XX XXX XX XX`, “Ad�
 
 ## 2. Project metadata
 
-The site contains three generic framework entries, not three verified projects. Each appears once on `/` and once in the matching position on `/projects/`. They must be replaced as linked pairs; the slot number is a layout position, not a project identity. No project detail routes exist.
+Four projects are verified for public display in canonical index order. The homepage uses three selected positions; no project detail routes exist or are required for this pass.
 
-### Project: `Kamu Projesi` (generic placeholder)
+### Project: Marmaray Pendik–Çerkezköy Banliyö Hattı
 
-Occurrences: `/` selected projects (`home-project-01`) and `/projects/` first card (`projects-index-01`, `data-project-category="public-project"`). Current destination: `/projects/`; no detail page.
+Occurrences: `/` selected project 1 (`home-project-01`) and `/projects/` index project 1 (`projects-index-01`).
 
-| Field | State | Current value |
-| --- | --- | --- |
-| Public name | PROVISIONAL | `Kamu Projesi` / `Proje bilgisi hazırlanıyor` |
-| Category | PROVISIONAL | Public project |
-| Location, year/date, client/client type, Rito role, scope, status, description | MISSING | Only “verified scope/media will be published” status copy |
-| Main/additional media | MISSING | Two CSS placeholders; no asset |
-| Detail destination | NOT CURRENTLY USED | Cards point to the index |
+* [x] Final public project name and category
+* [x] Location: Pendik–Çerkezköy
+* [x] Period: 2022–2026
+* [x] Client: TCDD
+* [x] Rito role and responsibility boundary
+* [x] Application scope: 60.000 m²
+* [x] Status: Tamamlandı
+* [x] Approved public summary
+* [x] Project and supplied metadata approved for public display
+* [x] Destination remains the existing project index; no detail page created
+* [ ] Main authentic image and image-specific publication permission
+* [ ] Additional images only if a future detail-page decision requires them
 
-* [ ] Final public project name and category
-* [ ] Location and year/completion period (publish only the fields the company approves)
-* [ ] Client name or public-safe client type
-* [ ] Rito role and exact responsibility boundary
-* [ ] Scope, status, and public-safe description/context
-* [ ] Main authentic image suitable for both home and index crops
-* [ ] Additional images only if a detail page will be created
-* [ ] Written confirmation that the project, client relationship, facts, and media may be shown publicly
-* [ ] Final destination decision: index-only card or verified detail page
+### Project: Pendik–Halkalı Banliyö Hattı
 
-### Project: `Gürültü Bariyeri Uygulaması` (generic placeholder)
+Occurrence: `/projects/` index project 2 (`projects-index-02`); related specialization link remains `/noise-barriers/`.
 
-Occurrences: `/` selected projects (`home-project-02`) and `/projects/` second card (`projects-index-02`, `data-project-category="noise-barrier"`). Current destinations: specialization page links; no project detail page.
+* [x] Final public project name and category
+* [x] Location: Haydarpaşa / İstanbul
+* [x] Period: 2026 · 3 Ay
+* [x] Client: KKC Marmaray İnşaat Adi Ortaklığı Ticari İşletmesi
+* [x] Rito role and responsibility boundary
+* [x] Application scope: 350 m²
+* [x] Status: Tamamlandı
+* [x] Approved public summary
+* [x] Project and supplied metadata approved for public display
+* [x] No detail page created
+* [ ] Main authentic image and image-specific publication permission
+* [ ] Confirm whether future `/noise-barriers/` showcase media depicts this project
+* [ ] Additional images only if a future detail-page decision requires them
 
-| Field | State | Current value |
-| --- | --- | --- |
-| Public name | PROVISIONAL | `Gürültü Bariyeri Uygulaması` / `Proje bilgisi hazırlanıyor` |
-| Category | PROVISIONAL | Noise-barrier application |
-| Location, year/date, client/client type, Rito role, scope, status, description | MISSING | Only “verified scope/media will be published” status copy |
-| Main/additional media | MISSING | Two card placeholders plus unassociated specialization showcase slots |
-| Detail destination | NOT CURRENTLY USED | Links lead to `/noise-barriers/` |
+### Project: Acun Medya Alaçatı
 
-* [ ] Final public project name and category
-* [ ] Location and year/completion period
-* [ ] Client name or public-safe client type
-* [ ] Rito role and exact responsibility boundary
-* [ ] Scope, status, and public-safe description/context
-* [ ] Main authentic image suitable for both home and index crops
-* [ ] Confirm whether the four `/noise-barriers/` slots document this same project or other verified work
-* [ ] Additional images only if a detail page will be created
-* [ ] Written confirmation that the project, client relationship, facts, and media may be shown publicly
-* [ ] Final destination decision: specialization page, index-only card, or verified detail page
+Occurrences: `/` selected project 3 (`home-project-03`) and `/projects/` index project 3 (`projects-index-03`).
 
-### Project: `Kurumsal Proje` (generic placeholder)
+* [x] Final public project name and category
+* [x] Location: Alaçatı / Çeşme / İzmir
+* [x] Period: 2026 · 1 Ay
+* [x] Client: Acun Medya A.Ş.
+* [x] Rito role and responsibility boundary
+* [x] Application scope: 520 m²
+* [x] Status: Tamamlandı
+* [x] Approved public summary
+* [x] Project and supplied metadata approved for public display
+* [x] Destination remains the existing project index; no detail page created
+* [ ] Main authentic image and image-specific publication permission
+* [ ] Confirm whether future `/noise-barriers/` showcase media depicts this project
+* [ ] Additional images only if a future detail-page decision requires them
 
-Occurrences: `/` selected projects (`home-project-03`) and `/projects/` third card (`projects-index-03`, `data-project-category="corporate-project"`). Current destination: `/projects/`; no detail page.
+### Project: Galataport İstanbul
 
-| Field | State | Current value |
-| --- | --- | --- |
-| Public name | PROVISIONAL | `Kurumsal Proje` / `Proje bilgisi hazırlanıyor` |
-| Category | PROVISIONAL | Corporate/private-sector project |
-| Location, year/date, client/client type, Rito role, scope, status, description | MISSING | Only “verified scope/media will be published” status copy |
-| Main/additional media | MISSING | Two CSS placeholders; no asset |
-| Detail destination | NOT CURRENTLY USED | Cards point to the index |
+Occurrences: `/` selected project 2 (`home-project-02`) and `/projects/` index project 4 (`projects-index-04`). No category or client is rendered because neither was approved for public use.
 
-* [ ] Final public project name and category
-* [ ] Location and year/completion period
-* [ ] Client name or public-safe client type
-* [ ] Rito role and exact responsibility boundary
-* [ ] Scope, status, and public-safe description/context
-* [ ] Main authentic image suitable for both home and index crops
-* [ ] Additional images only if a detail page will be created
-* [ ] Written confirmation that the project, client relationship, facts, and media may be shown publicly
-* [ ] Final destination decision: index-only card or verified detail page
+* [x] Final public project name; category is not currently used
+* [x] Location: Tophane / Beyoğlu / İstanbul
+* [x] Period: 2022 · 1 Yıl
+* [x] Client field intentionally omitted without placeholder or explanation
+* [x] Rito role and responsibility boundary
+* [x] Application scope: 100.000 m²
+* [x] Status: Tamamlandı
+* [x] Approved public summary retained verbatim
+* [x] Project and supplied metadata approved for public display
+* [x] Destination remains the existing project index; no detail page created
+* [ ] Main authentic image and image-specific publication permission
+* [ ] Additional images only if a future detail-page decision requires them
 
-### Project structure decision
+### Project structure
 
-* [ ] Confirm whether there are at least three publishable projects. If not, reduce/recompose the three framework positions later rather than inventing entries.
-* [ ] For any future detail page, supply only the designed fields actually supported by verified material: title/category, approved metadata, main image, project context, Rito role, scope/process, optional additional media, related projects, and inquiry link.
+* [x] Four verified projects populate the index; the existing repeated card pattern was extended once.
+* [x] Homepage selected order is Marmaray Pendik–Çerkezköy Banliyö Hattı, Galataport İstanbul, Acun Medya Alaçatı.
+* [ ] Any future detail page must use only verified title/category, metadata, main image, project context, Rito role, scope/process, optional additional media, related projects, and inquiry link.
 
 ## 3. Media / photographs
 
-All 12 documented `data-media-slot` IDs exist once in markup and once in `docs/media-manifest.md`; none is populated. No real media assets exist. The first eight card slots are layout positions whose project metadata and links must change with their images.
+All 13 documented `data-media-slot` IDs exist once in markup and once in `docs/media-manifest.md`; none is populated. No real media assets exist. The seven project-card slots are now associated with verified projects, but their authentic assets remain unresolved.
 
 ### `home-hero`
 
@@ -134,7 +138,7 @@ Route: `/` — specialization. Purpose: establish real noise-barrier work. Curre
 
 ### `home-project-01`
 
-Route: `/` — first selected-project card. Current state: empty CSS placeholder. Layout: 2.45:1 desktop, 1.8:1 mobile; lazy. Media policy: **REAL PROJECT MEDIA REQUIRED**; tied to the final first project and its link. Generated imagery is not acceptable. Adjacent verified title normally permits decorative `alt=""`.
+Route: `/` — first selected-project card, Marmaray Pendik–Çerkezköy Banliyö Hattı. Current state: empty CSS placeholder. Layout: 2.45:1 desktop, 1.8:1 mobile; lazy. Media policy: **REAL PROJECT MEDIA REQUIRED**. Generated imagery is not acceptable. Adjacent verified title normally permits decorative `alt=""`.
 
 * [ ] Authentic card asset and publication permission supplied
 * [ ] Final project/link association confirmed
@@ -144,7 +148,7 @@ Route: `/` — first selected-project card. Current state: empty CSS placeholder
 
 ### `home-project-02`
 
-Route: `/` — second selected-project card. Current state/layout/policy: same as `home-project-01`; currently tied to the generic noise-barrier entry.
+Route: `/` — second selected-project card, Galataport İstanbul. Current state/layout/policy: same as `home-project-01`.
 
 * [ ] Authentic card asset and publication permission supplied
 * [ ] Final project/link association confirmed
@@ -154,7 +158,7 @@ Route: `/` — second selected-project card. Current state/layout/policy: same a
 
 ### `home-project-03`
 
-Route: `/` — third selected-project card. Current state/layout/policy: same as `home-project-01`; currently tied to the generic corporate entry.
+Route: `/` — third selected-project card, Acun Medya Alaçatı. Current state/layout/policy: same as `home-project-01`.
 
 * [ ] Authentic card asset and publication permission supplied
 * [ ] Final project/link association confirmed
@@ -164,7 +168,7 @@ Route: `/` — third selected-project card. Current state/layout/policy: same as
 
 ### `projects-index-01`
 
-Route: `/projects/` — first portfolio card. Current state: CSS placeholder “Proje Görseli”. Layout: 16:10 desktop, 4:3 mobile; lazy. Media policy: **REAL PROJECT MEDIA REQUIRED**; likely the same source project as `home-project-01`, with an independent crop. Generated imagery is not acceptable. Usually decorative to the title.
+Route: `/projects/` — first portfolio card, Marmaray Pendik–Çerkezköy Banliyö Hattı. Current state: CSS placeholder “Proje Görseli”. Layout: 16:10 desktop, 4:3 mobile; lazy. Media policy: **REAL PROJECT MEDIA REQUIRED**; paired with `home-project-01`, with an independent crop. Generated imagery is not acceptable. Usually decorative to the title.
 
 * [ ] Authentic asset and permission supplied/confirmed
 * [ ] Association with final first project and home card confirmed
@@ -174,20 +178,30 @@ Route: `/projects/` — first portfolio card. Current state: CSS placeholder “
 
 ### `projects-index-02`
 
-Route: `/projects/` — second portfolio card. Current state: CSS placeholder “Uygulama Görseli”. Layout/policy: 16:10 desktop, 4:3 mobile; **REAL PROJECT MEDIA REQUIRED**; likely paired with `home-project-02`.
+Route: `/projects/` — second portfolio card, Pendik–Halkalı Banliyö Hattı. Current state: CSS placeholder “Uygulama Görseli”. Layout/policy: 16:10 desktop, 4:3 mobile; **REAL PROJECT MEDIA REQUIRED**.
 
 * [ ] Authentic asset and permission supplied/confirmed
-* [ ] Association with final second project and home card confirmed
+* [ ] Final project-image association confirmed
 * [ ] Final crop/focal point selected
 * [ ] Alt treatment confirmed against final card text
 * [ ] Required export(s) generated and media validator passes
 
 ### `projects-index-03`
 
-Route: `/projects/` — third portfolio card. Current state: CSS placeholder “Proje Detayı”. Layout/policy: 16:10 desktop, 4:3 mobile; **REAL PROJECT MEDIA REQUIRED**; likely paired with `home-project-03`.
+Route: `/projects/` — third portfolio card, Acun Medya Alaçatı. Current state: CSS placeholder “Proje Detayı”. Layout/policy: 16:10 desktop, 4:3 mobile; **REAL PROJECT MEDIA REQUIRED**; paired with `home-project-03`.
 
 * [ ] Authentic asset and permission supplied/confirmed
 * [ ] Association with final third project and home card confirmed
+* [ ] Final crop/focal point selected
+* [ ] Alt treatment confirmed against final card text
+* [ ] Required export(s) generated and media validator passes
+
+### `projects-index-04`
+
+Route: `/projects/` — fourth portfolio card, Galataport İstanbul. Current state: CSS placeholder “Proje Görseli”. Layout/policy: 16:10 desktop, 4:3 mobile; **REAL PROJECT MEDIA REQUIRED**; paired with `home-project-02`, with an independent crop. The asset must reflect the approved project-management responsibility boundary.
+
+* [ ] Authentic asset and permission supplied/confirmed
+* [ ] Association with Galataport İstanbul and home card confirmed
 * [ ] Final crop/focal point selected
 * [ ] Alt treatment confirmed against final card text
 * [ ] Required export(s) generated and media validator passes
@@ -345,10 +359,10 @@ Inventory only—do not implement until stage 5.
 
 * [x] All required public documents were audited: `/`, `/about/`, `/services/`, `/projects/`, `/noise-barriers/`, `/contact/`, `/privacy/`, and `/404.html`.
 * [x] Relevant CSS, JS, `assets/`, `docs/`, validators, README, and deployment documentation were searched for literal and semantic placeholders.
-* [x] The 12 media slots and manifest are synchronized; no undocumented markup slot or orphaned manifest slot was found.
+* [x] The 13 media slots and manifest are synchronized; no undocumented markup slot or orphaned manifest slot was found.
 * [x] `docs/media-conventions.md` matches the current wrapper, accessibility, loading, crop, naming, and validator contracts.
 * [x] `docs/inquiry-submission.md` matches the current disabled form and field names; it correctly defers endpoint and privacy facts.
-* [x] The three home project archetypes align by order/category with the three project-index archetypes; neither page contains real project data.
+* [x] Four verified projects populate `/projects/`; the homepage contains the approved three-project selection and order.
 * [x] Verified public email, telephone, business address, and office hours are integrated; no map link or visitor-facility claim was added.
 * [x] No personal Rito mailbox is public-facing.
 * [x] No real photograph/media is present and no slot could be mistaken for supplied documentary photography; placeholders are visually/textually marked.
@@ -359,8 +373,8 @@ Inventory only—do not implement until stage 5.
 
 ## 12. Documentation/source contract drift
 
-* [x] Slot contract: 12 markup slots = 12 required manifest rows; no drift.
-* [x] Project contract: home and index expose three corresponding layout positions; manifest correctly warns they are positions rather than proof of three projects.
+* [x] Slot contract: 13 markup slots = 13 required manifest rows; no drift.
+* [x] Project contract: the homepage exposes three selected positions and the index exposes four verified positions; manifest records all associations.
 * [x] Form contract: all documented payload names are present in markup; current JS implements only the two documented current states.
 * [ ] `docs/media-manifest.md` says the social-share image is deferred until “domain and verified media exist”; the domain is now verified, so only verified media/brand composition remains. Update this wording during content integration, not this audit.
 * [ ] `README.md` describes `ritomimarlik.com` as a planned deployment using a malformed relative Markdown link; update it when deployment documentation is next maintained. It is not public content.

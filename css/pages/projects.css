@@ -148,9 +148,37 @@
   font-weight: 400;
 }
 
-.portfolio-status {
+.portfolio-metadata {
+  display: grid;
+  margin: var(--space-3) 0 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.portfolio-metadata > div {
+  display: grid;
+  padding-block: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  grid-template-columns: minmax(6.5rem, 0.72fr) minmax(0, 1.28fr);
+  gap: var(--space-2);
+}
+
+.portfolio-metadata :is(dt, dd) {
+  margin: 0;
+  font-size: var(--font-size-meta);
+}
+
+.portfolio-metadata dt {
+  color: var(--color-slate);
+  font-weight: 600;
+}
+
+.portfolio-metadata dd {
+  overflow-wrap: anywhere;
+}
+
+.portfolio-summary {
   max-width: 24rem;
-  margin: var(--space-2) 0 0;
+  margin: var(--space-3) 0 0;
   color: var(--color-slate);
   font-size: var(--font-size-small);
 }
@@ -237,11 +265,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .portfolio-card:last-child {
-    max-width: calc(50% - 0.5rem);
-    grid-column: 1 / -1;
-  }
-
   .documentation-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -272,11 +295,6 @@
   .portfolio-grid,
   .documentation-grid {
     grid-template-columns: 1fr;
-  }
-
-  .portfolio-card:last-child {
-    max-width: none;
-    grid-column: auto;
   }
 
   .portfolio-media-wide,
