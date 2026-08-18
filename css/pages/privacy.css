@@ -119,7 +119,7 @@
   line-height: 1.65;
 }
 
-@media (max-width: 58rem) {
+@media (max-width: 57.999rem) {
   .privacy-content {
     display: block;
   }

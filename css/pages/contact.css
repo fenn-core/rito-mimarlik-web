@@ -34,8 +34,9 @@
 .contact-overview-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(3rem, 6vw, 7rem);
+  column-gap: clamp(4rem, 7vw, 9rem);
   align-items: start;
+  width: 100%;
 }
 
 .inquiry-intro > p {
@@ -343,7 +344,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 58rem) {
+@media (max-width: 57.999rem) {
   .contact-hero-grid,
   .contact-overview-grid,
   .inquiry-layout {
