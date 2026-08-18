@@ -40,6 +40,8 @@ A future implementation must:
 
 No endpoint URL, response schema, authentication model, retry policy, or delivery provider is defined yet.
 
+The verified future project-inquiry mailbox is `proje@ritomimarlik.com`. It is a delivery destination for the future backend, not a current form endpoint; documenting it here does not activate or imply transmission.
+
 ## UI states
 
 - `IDLE`: form is available and no submission has been attempted.

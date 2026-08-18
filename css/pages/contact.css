@@ -49,6 +49,54 @@
   font-size: 0.84rem;
 }
 
+.contact-information {
+  border-top: 1px solid var(--color-border);
+}
+
+.contact-information-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(19rem, 1fr);
+  gap: clamp(2.5rem, 6vw, 7rem);
+  align-items: start;
+}
+
+.contact-details {
+  margin: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.contact-details > div {
+  display: grid;
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  grid-template-columns: minmax(8rem, 0.65fr) minmax(0, 1.35fr);
+  gap: var(--space-4);
+}
+
+.contact-details :is(dt, dd) {
+  margin: 0;
+}
+
+.contact-details dt {
+  color: var(--color-slate);
+  font-size: var(--font-size-meta);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-details dd,
+.contact-details address {
+  color: var(--color-graphite);
+  font-size: var(--font-size-small);
+  font-style: normal;
+}
+
+.contact-details a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
 .inquiry-form-section {
   padding-block: clamp(3.25rem, 5vw, 5.25rem);
 }
@@ -279,6 +327,7 @@
 @media (max-width: 58rem) {
   .contact-hero-grid,
   .inquiry-intro-grid,
+  .contact-information-grid,
   .inquiry-layout {
     grid-template-columns: 1fr;
   }
