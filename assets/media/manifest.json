@@ -1,0 +1,25 @@
+{
+  "root": "assets/media",
+  "aspect_ratio": "16:9",
+  "formats": ["avif", "webp"],
+  "gallery_convention": "projects-index-NN[-01][-02...].{avif,webp}",
+  "assets": [
+    "generated/consultancy-placeholder",
+    "home/home-hero",
+    "home/home-noise-barrier",
+    "home/home-project-01",
+    "home/home-project-02",
+    "home/home-project-03",
+    "noise-barriers/noise-barriers-hero",
+    "noise-barriers/noise-barriers-showcase-wide",
+    "noise-barriers/noise-barriers-showcase-detail",
+    "noise-barriers/noise-barriers-showcase-site",
+    "projects/projects-index-01",
+    "projects/projects-index-01-01",
+    "projects/projects-index-02",
+    "projects/projects-index-02-01",
+    "projects/projects-index-02-02",
+    "projects/projects-index-03",
+    "projects/projects-index-03-01"
+  ]
+}

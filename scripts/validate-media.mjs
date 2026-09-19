@@ -12,6 +12,44 @@ const repositoryRoot = rootIndex >= 0
   ? resolve(args[rootIndex + 1] ?? "")
   : resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = join(repositoryRoot, "docs", "media-manifest.md");
+const mediaRoot = join(repositoryRoot, "assets", "media");
+
+const requiredMediaAssets = [
+  "generated/consultancy-placeholder.avif",
+  "generated/consultancy-placeholder.webp",
+  "home/home-hero.avif",
+  "home/home-hero.webp",
+  "home/home-noise-barrier.avif",
+  "home/home-noise-barrier.webp",
+  "home/home-project-01.avif",
+  "home/home-project-01.webp",
+  "home/home-project-02.avif",
+  "home/home-project-02.webp",
+  "home/home-project-03.avif",
+  "home/home-project-03.webp",
+  "noise-barriers/noise-barriers-hero.avif",
+  "noise-barriers/noise-barriers-hero.webp",
+  "noise-barriers/noise-barriers-showcase-detail.avif",
+  "noise-barriers/noise-barriers-showcase-detail.webp",
+  "noise-barriers/noise-barriers-showcase-site.avif",
+  "noise-barriers/noise-barriers-showcase-site.webp",
+  "noise-barriers/noise-barriers-showcase-wide.avif",
+  "noise-barriers/noise-barriers-showcase-wide.webp",
+  "projects/projects-index-01.avif",
+  "projects/projects-index-01.webp",
+  "projects/projects-index-01-01.avif",
+  "projects/projects-index-01-01.webp",
+  "projects/projects-index-02.avif",
+  "projects/projects-index-02.webp",
+  "projects/projects-index-02-01.avif",
+  "projects/projects-index-02-01.webp",
+  "projects/projects-index-02-02.avif",
+  "projects/projects-index-02-02.webp",
+  "projects/projects-index-03.avif",
+  "projects/projects-index-03.webp",
+  "projects/projects-index-03-01.avif",
+  "projects/projects-index-03-01.webp",
+];
 
 function collectFiles(directory, extension) {
   const files = [];
@@ -96,7 +134,51 @@ function parseSrcset(value) {
 const issues = [];
 const slots = [];
 const assetUsage = new Map();
+const runtimeMediaLayerExists = existsSync(join(repositoryRoot, "js", "media.js"));
 const addIssue = (level, code, message, context = {}) => issues.push({ level, code, message, ...context });
+
+function validateMediaInventory() {
+  for (const asset of requiredMediaAssets) {
+    if (!existsSync(join(mediaRoot, asset))) {
+      addIssue("error", "missing-required-media", `Required baseline media is missing: assets/media/${asset}`, { file: `assets/media/${asset}` });
+    }
+  }
+
+  const mediaFiles = collectFiles(mediaRoot, "").filter((file) => /\.(?:avif|webp)$/i.test(file));
+  const logicalEntries = new Map();
+  for (const file of mediaFiles) {
+    const relativePath = relative(mediaRoot, file).replaceAll(sep, "/");
+    const match = relativePath.match(/^(.*)\.(avif|webp)$/i);
+    if (!match) continue;
+    const logical = match[1];
+    if (!logicalEntries.has(logical)) logicalEntries.set(logical, new Set());
+    logicalEntries.get(logical).add(match[2].toLowerCase());
+
+    if (relativePath.startsWith("projects/")) {
+      const filename = relativePath.slice("projects/".length);
+      const projectMatch = filename.match(/^projects-index-(\d{2})(?:-(\d{2}))?\.(avif|webp)$/i);
+      if (!projectMatch) {
+        addIssue("error", "invalid-project-media-name", `Invalid project media name: assets/media/${relativePath}`, { file: `assets/media/${relativePath}` });
+      } else if (projectMatch[2] === "00") {
+        addIssue("error", "invalid-gallery-suffix", `Gallery suffix -00 is not allowed: assets/media/${relativePath}`, { file: `assets/media/${relativePath}` });
+      }
+    }
+  }
+
+  for (const [logical, formats] of logicalEntries) {
+    if (!formats.has("avif")) addIssue("error", "orphan-webp", `WebP has no AVIF pair: assets/media/${logical}.webp`, { file: `assets/media/${logical}.webp` });
+    if (!formats.has("webp")) addIssue("error", "orphan-avif", `AVIF has no WebP pair: assets/media/${logical}.avif`, { file: `assets/media/${logical}.avif` });
+  }
+
+  const mediaScript = join(repositoryRoot, "js", "media.js");
+  if (!existsSync(mediaScript)) addIssue("error", "missing-media-data-layer", "The explicit media data layer is missing.", { file: "js/media.js" });
+  else {
+    const source = readFileSync(mediaScript, "utf8");
+    for (const slot of ["home-hero", "home-noise-barrier", "home-project-01", "home-project-02", "home-project-03", "noise-barriers-hero", "noise-barriers-showcase-wide", "noise-barriers-showcase-detail", "noise-barriers-showcase-site", "01", "02", "03", "04"]) {
+      if (!source.includes(`"${slot}"`)) addIssue("error", "media-slot-missing-from-data-layer", `Media data layer is missing: ${slot}`, { slot, file: "js/media.js" });
+    }
+  }
+}
 
 function validatePath(value, htmlPath, slotId, attribute) {
   if (!value) {
@@ -189,6 +271,7 @@ function validateImage(image, wrapper, htmlPath, manifestSlot) {
 
 try {
   if (!existsSync(manifestPath)) throw new Error(`Manifest not found: ${manifestPath}`);
+  validateMediaInventory();
   const manifestSlots = parseManifest(readFileSync(manifestPath, "utf8"));
   const manifestById = new Map();
   for (const slot of manifestSlots) {
@@ -239,7 +322,7 @@ try {
       if (position && !/^(?:(?:\d+(?:\.\d+)?%|left|center|right|top|bottom)(?:\s+(?:\d+(?:\.\d+)?%|left|center|right|top|bottom))?)$/i.test(position)) {
         addIssue("warning", "malformed-media-position", `Unrecognized --media-position value: ${position}`, { slot: slotId, file });
       }
-      slots.push({ id: slotId, file, state: hasImage ? "populated" : "placeholder" });
+      slots.push({ id: slotId, file, state: hasImage ? "populated" : runtimeMediaLayerExists ? "runtime-populated" : "placeholder" });
       markupById.set(slotId, { file });
     }
 
@@ -283,7 +366,8 @@ try {
     summary: {
       totalSlots: slots.length,
       placeholders: slots.filter((slot) => slot.state === "placeholder").length,
-      populated: slots.filter((slot) => slot.state === "populated").length,
+      populated: slots.filter((slot) => ["populated", "runtime-populated"].includes(slot.state)).length,
+      runtimePopulated: slots.filter((slot) => slot.state === "runtime-populated").length,
       errors: errors.length,
       warnings: warnings.length,
     },
@@ -296,7 +380,7 @@ try {
     process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
   } else {
     console.log(report.title);
-    console.log(`Slots: ${report.summary.totalSlots} total, ${report.summary.placeholders} placeholders, ${report.summary.populated} populated`);
+    console.log(`Slots: ${report.summary.totalSlots} total, ${report.summary.placeholders} placeholders, ${report.summary.populated} populated (${report.summary.runtimePopulated} via media.js)`);
     console.log(`Errors: ${report.summary.errors} | Warnings: ${report.summary.warnings}\n`);
     const issuesBySlot = new Map();
     for (const issue of issues) {
