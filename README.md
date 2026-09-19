@@ -1,15 +1,20 @@
-# Rito Mimarlik website 
+# Rito Mimarlik Website
 
-planned deployment on [ritomimarlik.com ](ritomimarlik.com)
+Official website for Rito Mimarlik.
 
+Deployed at [ritomimarlik.com](https://ritomimarlik.com)
 
-# Development Log
+## Features
 
-## 2026-07-19
+- Responsive static website
+- Project and service showcase
+- Noise barrier specialization page
+- Project inquiry/contact form
+- Optimized AVIF/WebP media
+- SEO metadata, sitemap and structured data
+- Cloudflare Tunnel deployment
+- Zoho Mail API integration for inquiries
 
-Initialized the repository
+## Stack
 
-Built the initial HTML structure
-
-Built the quote form with minor css/js 
-
+HTML, CSS, JavaScript, Node.js, nginx, Cloudflare Tunnel
