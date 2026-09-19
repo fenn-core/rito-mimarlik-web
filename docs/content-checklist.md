@@ -36,12 +36,12 @@ Input-like examples inside the form (`ornek@firma.com`, `05XX XXX XX XX`, “Ad�
 
 Four projects are verified for public display in canonical index order. The homepage uses three selected positions; no project detail routes exist or are required for this pass.
 
-### Project: Marmaray Pendik–Çerkezköy Banliyö Hattı
+### Project: Çerkezköy–Edirne Demiryolu Hattı
 
 Occurrences: `/` selected project 1 (`home-project-01`) and `/projects/` index project 1 (`projects-index-01`).
 
 * [x] Final public project name and category
-* [x] Location: Pendik–Çerkezköy
+* [x] Location: Çerkezköy–Edirne
 * [x] Period: 2022–2026
 * [x] Client: TCDD
 * [x] Rito role and responsibility boundary
@@ -109,7 +109,7 @@ Occurrences: `/` selected project 2 (`home-project-02`) and `/projects/` index p
 ### Project structure
 
 * [x] Four verified projects populate the index; the existing repeated card pattern was extended once.
-* [x] Homepage selected order is Marmaray Pendik–Çerkezköy Banliyö Hattı, Galataport İstanbul, Acun Medya Alaçatı.
+* [x] Homepage selected order is Çerkezköy–Edirne Demiryolu Hattı, Galataport İstanbul, Acun Medya Alaçatı.
 * [ ] Any future detail page must use only verified title/category, metadata, main image, project context, Rito role, scope/process, optional additional media, related projects, and inquiry link.
 
 ### Public scaffolding copy found in second-pass audit
@@ -148,7 +148,7 @@ Route: `/` — specialization. Purpose: establish real noise-barrier work. Curre
 
 ### `home-project-01`
 
-Route: `/` — first selected-project card, Marmaray Pendik–Çerkezköy Banliyö Hattı. Current state: empty CSS placeholder. Layout: 2.45:1 desktop, 1.8:1 mobile; lazy. Media policy: **REAL PROJECT MEDIA REQUIRED**. Generated imagery is not acceptable. Adjacent verified title normally permits decorative `alt=""`.
+Route: `/` — first selected-project card, Çerkezköy–Edirne Demiryolu Hattı. Current state: empty CSS placeholder. Layout: 2.45:1 desktop, 1.8:1 mobile; lazy. Media policy: **REAL PROJECT MEDIA REQUIRED**. Generated imagery is not acceptable. Adjacent verified title normally permits decorative `alt=""`.
 
 * [ ] Authentic card asset and publication permission supplied
 * [ ] Final project/link association confirmed
@@ -178,7 +178,7 @@ Route: `/` — third selected-project card, Acun Medya Alaçatı. Current state/
 
 ### `projects-index-01`
 
-Route: `/projects/` — first portfolio card, Marmaray Pendik–Çerkezköy Banliyö Hattı. Current state: CSS placeholder “Proje Görseli”. Layout: 16:10 desktop, 4:3 mobile; lazy. Media policy: **REAL PROJECT MEDIA REQUIRED**; paired with `home-project-01`, with an independent crop. Generated imagery is not acceptable. Usually decorative to the title.
+Route: `/projects/` — first portfolio card, Çerkezköy–Edirne Demiryolu Hattı. Current state: CSS placeholder “Proje Görseli”. Layout: 16:10 desktop, 4:3 mobile; lazy. Media policy: **REAL PROJECT MEDIA REQUIRED**; paired with `home-project-01`, with an independent crop. Generated imagery is not acceptable. Usually decorative to the title.
 
 * [ ] Authentic asset and permission supplied/confirmed
 * [ ] Association with final first project and home card confirmed

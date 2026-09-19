@@ -40,7 +40,7 @@ The current authoritative order in `/projects/` is:
 
 | Index | Project | Media |
 | ---: | --- | --- |
-| 01 | Marmaray Pendik–Çerkezköy Banliyö Hattı | `projects-index-01`, `projects-index-01-01` |
+| 01 | Çerkezköy–Edirne Demiryolu Hattı | `projects-index-01`, `projects-index-01-01` |
 | 02 | Pendik–Halkalı Banliyö Hattı — Haydarpaşa Tarihi Köprü Korkuluk Bariyeri | `projects-index-02`, `projects-index-02-01`, `projects-index-02-02` |
 | 03 | Acun Medya Alaçatı | `projects-index-03`, `projects-index-03-01` |
 | 04 | Galataport İstanbul | `generated/consultancy-placeholder` only; generic consultancy artwork, not documentary photography |

@@ -10,7 +10,7 @@ const image = (path, alt = "", options = {}) => ({
 });
 
 const projectAlt = {
-  "01": "Marmaray Pendik–Çerkezköy banliyö hattı gürültü bariyeri uygulaması",
+  "01": "Çerkezköy–Edirne demiryolu hattı gürültü bariyeri uygulaması",
   "02": "Pendik–Halkalı banliyö hattı Haydarpaşa tarihi köprü korkuluk bariyeri uygulaması",
   "03": "Acun Medya Alaçatı gürültü bariyeri uygulaması",
 };
