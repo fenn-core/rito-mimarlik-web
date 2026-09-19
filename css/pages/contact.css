@@ -109,7 +109,6 @@
 
 .inquiry-layout {
   display: grid;
-  width: 100%;
   max-width: var(--measure-medium);
   margin-inline: auto;
   grid-template-columns: minmax(15rem, 0.42fr) minmax(0, 1.58fr);

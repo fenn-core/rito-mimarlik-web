@@ -29,10 +29,10 @@ The verified written/application address is now displayed. The public telephone 
 
 Classification for these five items: **REMOVE/REWRITE LATER BECAUSE FEATURE DOES NOT EXIST** or visitor-facing copy cleanup. No new project facts are required; approved metadata must remain unchanged.
 
-### `/noise-barriers/` known media-state wording
+### `/noise-barriers/` media-state wording — resolved
 
-* [ ] `Bu alan, doğrulanmış şirket medyası sağlandığında proje fotoğrafları ve uygulama dokümanlarıyla güncellenecek.` — explicit future media scaffolding.
-* [ ] Captions `Proje Görseli — Geçici medya alanı`, `Uygulama Detayı — Geçici medya alanı`, and `Saha Görseli — Geçici medya alanı` — visible temporary labels that must disappear or become factual captions with real media.
+* [x] Showcase copy now describes the supplied project-context, application-detail, and site-process visuals.
+* [x] Temporary media captions were removed; the remaining captions are factual labels: `Proje Görseli`, `Uygulama Detayı`, and `Saha Görseli`.
 
 These are known media dependencies, not newly discovered media slots.
 
@@ -59,13 +59,13 @@ No quantitative acoustic, dB, testing, certification, manufacturing, warranty, s
 
 * [ ] Retain the existing checklist review of noise-barrier wording around field implementation, project-delivery tracking, materials/finishes, maintenance/access, and contractor coordination so it does not imply responsibility beyond the verified coordination roles.
 
-## 6. Known Media Placeholders
+## 6. Media population — resolved
 
-All 13 documented slots remain intentional and unpopulated: `home-hero`, `home-noise-barrier`, `home-project-01`–`03`, `projects-index-01`–`04`, `noise-barriers-hero`, and the three `noise-barriers-showcase-*` slots.
+All 13 documented slots are populated through the explicit `js/media.js` data layer: `home-hero`, `home-noise-barrier`, `home-project-01`–`03`, `projects-index-01`–`04`, `noise-barriers-hero`, and the three `noise-barriers-showcase-*` slots.
 
-Current visitor-visible media labels are: `/` — `Proje / saha uygulama medyası`, `Gürültü bariyeri proje medyası`; `/projects/` — `Proje Görseli` (two slots), `Uygulama Görseli`, `Proje Detayı`; `/noise-barriers/` — `Gürültü bariyeri proje görseli`, plus the three temporary showcase captions listed in section 2. The three homepage project-card placeholders carry no visible text.
+Media slots no longer expose placeholder/demo text while their images load. Project and showcase captions use factual context labels, and homepage project cards remain identified by their adjacent project titles.
 
-* [ ] Replace their visitor-visible placeholder labels only as part of authentic media population; do not remove slot hooks prematurely.
+The generated consultancy artwork remains explicitly mapped to Galataport's project-management/hakediş role and is not described as documentary photography.
 
 The `RİTO / MİMARLIK` text wordmark is an intentional fallback, not broken branding. Final logo/favicon files remain optional future assets.
 
