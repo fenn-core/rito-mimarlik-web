@@ -343,13 +343,15 @@ try {
     if (/\b(?:localhost|127\.0\.0\.1)(?::\d+)?\b/i.test(runtimeSource)) add("error", "development-host", "Public source contains a localhost runtime reference.", rel);
     if (extname(filePath) === ".js" && /\bconsole\.(?:log|debug)\s*\(/.test(runtimeSource)) add("warning", "debug-console", "Public JavaScript contains console logging.", rel);
     if (extname(filePath) === ".html") {
-      if (/<style\b|\sstyle\s*=|\son[a-z]+\s*=|<script\b(?![^>]*\bsrc\s*=)[^>]*>/i.test(runtimeSource)) {
+      if (/<style\b|\sstyle\s*=|\son[a-z]+\s*=|<script\b(?![^>]*\bsrc\s*=)(?![^>]*\btype\s*=\s*["']application\/ld\+json["'])[^>]*>/i.test(runtimeSource)) {
         add("error", "csp-inline-source", "Inline style/script/handler conflicts with the active CSP.", rel);
       }
       for (const match of runtimeSource.matchAll(/<([a-z][\w-]*)\b([^<>]*?)>/gi)) {
         const tag = match[1].toLowerCase();
         const attrs = attributes(match[2]);
+        if (tag === "script" && attrs.get("type")?.toLowerCase() === "application/ld+json") continue;
         for (const attribute of ["href", "src"]) {
+          if (tag === "link" && attribute === "href" && attrs.get("rel")?.toLowerCase() === "canonical") continue;
           if (attrs.has(attribute)) checkReference(attrs.get(attribute), filePath, tag, attribute);
         }
       }

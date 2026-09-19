@@ -43,7 +43,7 @@ const PROJECT_MEDIA = {
   ],
   // Galataport has consultancy / hakediş work but no documentary project photography.
   "04": [
-    image("generated/consultancy-placeholder", ""),
+    image("generated/consultancy-placeholder", "Teknik danışmanlık ve proje yönetimini temsil eden soyut grafik"),
   ],
 };
 
