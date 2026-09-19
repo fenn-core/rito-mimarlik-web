@@ -78,7 +78,6 @@ export function createZohoMailer({
       subject: mail.subject,
       content: mail.html,
       mailFormat: "html",
-      ...(mail.replyTo ? { replyTo: mail.replyTo } : {}),
     };
   }
 
