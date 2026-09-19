@@ -150,11 +150,11 @@ The exact transfer/login commands are deferred until server access details are k
 
 The verified runtime path is:
 
-`Browser → /api/inquiry → nginx → 127.0.0.1:8787 → rito-inquiry.service → smtp.zoho.eu:465 → webform@ritomimarlik.com → proje@ritomimarlik.com`
+`Browser → /api/inquiry → nginx → 127.0.0.1:8787 → rito-inquiry.service → Zoho Mail HTTPS API → webform@ritomimarlik.com → proje@ritomimarlik.com`
 
 nginx proxies exactly `/api/inquiry` to the loopback service using the contract in `deploy/nginx/rito-mimarlik.conf.template`. `GET /health` is not proxied and remains loopback-only. The service runs from `/opt/rito-inquiry/current`, reads `/etc/rito-inquiry/inquiry.env`, and is enabled as `rito-inquiry.service`.
 
-The nginx-to-Node route, systemd service, Zoho EU SMTP authentication, and real form-message delivery have all succeeded in production. No credential, sensitive SMTP response, or personal test address is recorded in the repository.
+The nginx-to-Node route, systemd service, Zoho EU API authentication, and real form-message delivery have all succeeded in production. No credential, sensitive provider response, or personal test address is recorded in the repository.
 
 ## DNS coexistence
 

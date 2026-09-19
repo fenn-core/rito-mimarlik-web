@@ -7,9 +7,6 @@
     "start": "node src/index.js",
     "test": "node --test"
   },
-  "dependencies": {
-    "nodemailer": "^9.0.5"
-  },
   "engines": {
     "node": ">=20"
   }

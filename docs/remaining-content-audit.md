@@ -47,7 +47,7 @@ Optional About-profile facts (founding history, credentials, references, team/or
 ## 4. Backend-Dependent Privacy Items
 
 * [x] Current page reflects the implemented active form without claiming a database or local archive.
-* [x] Actual fields and the live path `/api/inquiry` → nginx → enabled loopback Node service → Zoho EU SMTP → `proje@` are documented and production-tested; content-free operational logging, absent application database/local archive/queue, and transient in-memory rate-limit metadata remain established facts.
+* [x] Actual fields and the live path `/api/inquiry` → nginx → enabled loopback Node service → Zoho EU Mail HTTPS API → `proje@` are documented and production-tested; content-free operational logging, absent application database/local archive/queue, and transient in-memory rate-limit metadata remain established facts.
 * [ ] Confirm authorized recipients behind `proje@`, mailbox/provider retention and deletion, backups, operational access/security, processor roles, and domestic/international transfer facts.
 * [ ] Complete the legal analysis for Zoho/hosting and every processor/recipient or transfer.
 * [ ] Define the operational data-subject request and identity-verification workflow.
@@ -75,5 +75,5 @@ The `RİTO / MİMARLIK` text wordmark is an intentional fallback, not broken bra
 * [x] `/` has no non-media content placeholder; its visible temporary text is confined to known media slots.
 * [x] Verified contact information is consistent and personal mailboxes are absent.
 * [x] The four approved projects and their metadata are not placeholders.
-* [x] The form now truthfully reports active submission states and never reports success before SMTP destination acceptance.
+* [x] The form now truthfully reports active submission states and never reports success before provider destination acceptance.
 * [x] Form input examples (`ornek@firma.com`, `05XX XXX XX XX`, location/message hints) are ordinary entry guidance, not company-data placeholders.

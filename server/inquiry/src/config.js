@@ -4,13 +4,6 @@ function positiveInteger(value, fallback, name) {
   return parsed;
 }
 
-function boolean(value, fallback, name) {
-  if (value === undefined) return fallback;
-  if (value === "true") return true;
-  if (value === "false") return false;
-  throw new Error(`invalid_config:${name}`);
-}
-
 function allowedOrigins(env) {
   const configured = env.INQUIRY_ALLOWED_ORIGINS !== undefined
     ? env.INQUIRY_ALLOWED_ORIGINS
@@ -21,14 +14,18 @@ function allowedOrigins(env) {
 }
 
 export function loadConfig(env = process.env) {
-  const required = ["SMTP_HOST", "SMTP_USER", "SMTP_PASSWORD", "INQUIRY_TO"];
+  const required = [
+    "ZOHO_CLIENT_ID",
+    "ZOHO_CLIENT_SECRET",
+    "ZOHO_REFRESH_TOKEN",
+    "ZOHO_ACCOUNT_ID",
+    "ZOHO_FROM",
+    "INQUIRY_TO",
+  ];
   for (const name of required) if (!env[name]) throw new Error(`missing_config:${name}`);
   const host = env.INQUIRY_HOST || "127.0.0.1";
-  const secure = boolean(env.SMTP_SECURE, true, "SMTP_SECURE");
   if (host !== "127.0.0.1" && host !== "::1") throw new Error("invalid_config:INQUIRY_HOST");
-  if (!secure) throw new Error("invalid_config:SMTP_SECURE");
-  if (!["smtp.zoho.com", "smtp.zoho.eu"].includes(env.SMTP_HOST)) throw new Error("invalid_config:SMTP_HOST");
-  if (env.SMTP_USER !== "webform@ritomimarlik.com") throw new Error("invalid_config:SMTP_USER");
+  if (env.ZOHO_FROM !== "webform@ritomimarlik.com") throw new Error("invalid_config:ZOHO_FROM");
   if (env.INQUIRY_TO !== "proje@ritomimarlik.com") throw new Error("invalid_config:INQUIRY_TO");
   return {
     host,
@@ -37,12 +34,12 @@ export function loadConfig(env = process.env) {
     bodyLimit: positiveInteger(env.INQUIRY_BODY_LIMIT, 24 * 1024, "INQUIRY_BODY_LIMIT"),
     rateLimitMax: positiveInteger(env.INQUIRY_RATE_LIMIT_MAX, 5, "INQUIRY_RATE_LIMIT_MAX"),
     rateLimitWindowMs: positiveInteger(env.INQUIRY_RATE_LIMIT_WINDOW_MS, 15 * 60 * 1000, "INQUIRY_RATE_LIMIT_WINDOW_MS"),
-    smtp: {
-      host: env.SMTP_HOST,
-      port: positiveInteger(env.SMTP_PORT, 465, "SMTP_PORT"),
-      secure,
-      user: env.SMTP_USER,
-      password: env.SMTP_PASSWORD,
+    zoho: {
+      clientId: env.ZOHO_CLIENT_ID,
+      clientSecret: env.ZOHO_CLIENT_SECRET,
+      refreshToken: env.ZOHO_REFRESH_TOKEN,
+      accountId: env.ZOHO_ACCOUNT_ID,
+      fromAddress: env.ZOHO_FROM,
     },
     inquiryTo: env.INQUIRY_TO,
   };

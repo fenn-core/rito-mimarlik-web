@@ -10,7 +10,7 @@ const baseConfig = {
   bodyLimit: 24 * 1024,
   rateLimitMax: 5,
   rateLimitWindowMs: 60_000,
-  smtp: { user: "webform@ritomimarlik.com" },
+  zoho: { fromAddress: "webform@ritomimarlik.com" },
   inquiryTo: "proje@ritomimarlik.com",
 };
 
@@ -66,13 +66,13 @@ test("valid submission is normalized and accepted", () => {
   assert.equal(result.value["full-name"], "Ada Örnek");
 });
 
-test("production configuration enforces loopback, fixed mailboxes, and implicit TLS", () => {
+test("production configuration enforces loopback, fixed mailboxes, and Zoho API settings", () => {
   const env = {
-    SMTP_HOST: "smtp.zoho.eu",
-    SMTP_PORT: "465",
-    SMTP_SECURE: "true",
-    SMTP_USER: "webform@ritomimarlik.com",
-    SMTP_PASSWORD: "test-only",
+    ZOHO_CLIENT_ID: "client-id",
+    ZOHO_CLIENT_SECRET: "client-secret",
+    ZOHO_REFRESH_TOKEN: "refresh-token",
+    ZOHO_ACCOUNT_ID: "account-id",
+    ZOHO_FROM: "webform@ritomimarlik.com",
     INQUIRY_TO: "proje@ritomimarlik.com",
   };
   assert.equal(loadConfig(env).host, "127.0.0.1");
@@ -82,9 +82,7 @@ test("production configuration enforces loopback, fixed mailboxes, and implicit 
   assert.deepEqual(loadConfig({ ...env, INQUIRY_ALLOWED_ORIGINS: "http://preferred-origin", INQUIRY_ALLOWED_ORIGIN: "http://legacy-origin" }).allowedOrigins, ["http://preferred-origin"]);
   assert.throws(() => loadConfig({ ...env, INQUIRY_ALLOWED_ORIGINS: "*" }), /INQUIRY_ALLOWED_ORIGINS/);
   assert.throws(() => loadConfig({ ...env, INQUIRY_HOST: "0.0.0.0" }), /INQUIRY_HOST/);
-  assert.throws(() => loadConfig({ ...env, SMTP_SECURE: "false" }), /SMTP_SECURE/);
-  assert.throws(() => loadConfig({ ...env, SMTP_HOST: "smtp.zoho.com" }), /SMTP_HOST/);
-  assert.throws(() => loadConfig({ ...env, SMTP_USER: "personal@example.org" }), /SMTP_USER/);
+  assert.throws(() => loadConfig({ ...env, ZOHO_FROM: "personal@example.org" }), /ZOHO_FROM/);
   assert.throws(() => loadConfig({ ...env, INQUIRY_TO: "other@example.org" }), /INQUIRY_TO/);
 });
 
@@ -129,14 +127,14 @@ test("single-line header/control character abuse is rejected", () => {
 test("HTML output escapes every supplied value and text output preserves lines", () => {
   assert.equal(escapeHtml("<script>&\"'"), "&lt;script&gt;&amp;&quot;&#39;");
   const data = validSubmission({ message: "Birinci satır\n<script>alert(1)</script>" });
-  const mail = buildMail({ data, reference: "ref-1", timestamp: "2026-08-18T12:00:00.000Z", fromAddress: baseConfig.smtp.user, toAddress: baseConfig.inquiryTo });
+  const mail = buildMail({ data, reference: "ref-1", timestamp: "2026-08-18T12:00:00.000Z", fromAddress: baseConfig.zoho.fromAddress, toAddress: baseConfig.inquiryTo });
   assert.equal(mail.html.includes("<script>alert(1)</script>"), false);
   assert.ok(mail.html.includes("&lt;script&gt;alert(1)&lt;/script&gt;"));
   assert.ok(mail.text.includes("Birinci satır\n<script>alert(1)</script>"));
 });
 
 test("Reply-To is present only when an email is supplied", () => {
-  const args = { reference: "ref", timestamp: "now", fromAddress: baseConfig.smtp.user, toAddress: baseConfig.inquiryTo };
+  const args = { reference: "ref", timestamp: "now", fromAddress: baseConfig.zoho.fromAddress, toAddress: baseConfig.inquiryTo };
   assert.equal(buildMail({ ...args, data: validSubmission() }).replyTo, "ada@example.org");
   assert.equal("replyTo" in buildMail({ ...args, data: validSubmission({ email: "" }) }), false);
 });
@@ -166,7 +164,7 @@ test("Origin mismatch is rejected before delivery", async () => {
   });
 });
 
-test("honeypot receives generic success but never triggers SMTP", async () => {
+test("honeypot receives generic success but never triggers delivery", async () => {
   let calls = 0;
   await withServer({ mailer: { sendMail: async () => { calls += 1; } } }, async ({ url }) => {
     const response = await post(url, validSubmission({ website: "https://bot.example" }));
@@ -185,7 +183,7 @@ test("in-memory rate limit returns 429", async () => {
   });
 });
 
-test("SMTP failure maps to delivery_unavailable without leaking diagnostics", async () => {
+test("delivery failure maps to delivery_unavailable without leaking diagnostics", async () => {
   await withServer({ mailer: { sendMail: async () => { throw new Error("secret provider diagnostic"); } } }, async ({ url, logs }) => {
     const response = await post(url, validSubmission());
     const raw = await response.text();
@@ -196,7 +194,7 @@ test("SMTP failure maps to delivery_unavailable without leaking diagnostics", as
   });
 });
 
-test("success requires SMTP acceptance of the configured destination", async () => {
+test("success requires acceptance of the configured destination", async () => {
   await withServer({ mailer: { sendMail: async () => ({ accepted: ["other@example.org"] }) } }, async ({ url }) => {
     assert.equal((await post(url, validSubmission())).status, 503);
   });

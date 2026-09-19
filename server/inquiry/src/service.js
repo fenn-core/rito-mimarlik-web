@@ -144,16 +144,16 @@ export function createInquiryServer({
       data: result.value,
       reference,
       timestamp,
-      fromAddress: config.smtp.user,
+      fromAddress: config.zoho.fromAddress,
       toAddress: config.inquiryTo,
     });
     try {
       const info = await mailer.sendMail(mail);
       if (!acceptedDestination(info, config.inquiryTo)) throw new Error("destination_not_accepted");
-      operationalLog("smtp_accepted", reference);
+      operationalLog("delivery_accepted", reference);
       respond(response, 202, { ok: true, reference });
     } catch {
-      operationalLog("smtp_failed", reference);
+      operationalLog("delivery_failed", reference);
       respond(response, 503, { ok: false, code: "delivery_unavailable" });
     }
   });

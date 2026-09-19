@@ -2,11 +2,11 @@
 
 ## Implemented architecture
 
-`/contact/#project-inquiry` uses `data-submission-mode="active"`. After native browser validation, `js/quote-form.js` sends JSON to the same-origin `POST /api/inquiry` endpoint. A standalone Node service receives and validates the payload, creates plain-text and HTML email variants transiently, and submits the message through authenticated Zoho SMTP.
+`/contact/#project-inquiry` uses `data-submission-mode="active"`. After native browser validation, `js/quote-form.js` sends JSON to the same-origin `POST /api/inquiry` endpoint. A standalone Node service receives and validates the payload, creates plain-text and HTML email variants transiently, and submits the message through the authenticated Zoho Mail EU HTTPS API.
 
-The SMTP identity is `webform@ritomimarlik.com`; the only project-delivery destination is `proje@ritomimarlik.com`. The destination remains an RX/distribution address. Browser success is returned only after SMTP reports that destination as accepted.
+The Zoho API sender is `webform@ritomimarlik.com`; the only project-delivery destination is `proje@ritomimarlik.com`. The destination remains an RX/distribution address. Browser success is returned only after the API reports that destination as accepted.
 
-There is no application database, persistent queue, local message archive, file spool, or automatic persistent retry. Normal operational logs contain only timestamp, non-sensitive reference ID, outcome category, and an invalid-field count for validation failures. They exclude inquiry values, submitted field names, client IP addresses, and SMTP credentials. In-memory rate-limit keys expire with the process/window and are not written to logs.
+There is no application database, persistent queue, local message archive, file spool, or automatic persistent retry. Normal operational logs contain only timestamp, non-sensitive reference ID, outcome category, and an invalid-field count for validation failures. They exclude inquiry values, submitted field names, client IP addresses, and OAuth credentials or access tokens. In-memory rate-limit keys expire with the process/window and are not written to logs.
 
 ## Payload fields and validation
 
@@ -37,14 +37,14 @@ Unknown top-level fields, invalid types/enums, prohibited control characters, mi
 - Unsupported body: `415 { "ok": false, "code": "unsupported_media_type" }`.
 - Oversized body: `413 { "ok": false, "code": "payload_too_large" }`.
 - Rate limit: `429 { "ok": false, "code": "rate_limited" }`.
-- SMTP/service failure: `503 { "ok": false, "code": "delivery_unavailable" }`.
+- Zoho API/service failure: `503 { "ok": false, "code": "delivery_unavailable" }`.
 - `GET /health` returns only `{ "ok": true }` and never sends mail.
 
-Honeypot hits receive the same generic `202` shape as real acceptance but never invoke SMTP. This avoids giving bots a useful detection signal.
+Honeypot hits receive the same generic `202` shape as real acceptance but never invoke provider delivery. This avoids giving bots a useful detection signal.
 
-## SMTP and message safety
+## Zoho Mail API and message safety
 
-Configuration comes only from the service environment; see `server/inquiry/.env.example`. The European Zoho organization uses the allowlisted production host `smtp.zoho.eu` on port 465 with implicit TLS and certificate verification enabled. Authenticated SMTP verification and a real inquiry delivery to `proje@ritomimarlik.com` have succeeded through this host. No startup email is sent.
+Configuration comes only from the service environment; see `server/inquiry/.env.example`. Required provider variables are `ZOHO_CLIENT_ID`, `ZOHO_CLIENT_SECRET`, `ZOHO_REFRESH_TOKEN`, `ZOHO_ACCOUNT_ID`, `ZOHO_FROM`, and `INQUIRY_TO`; `ZOHO_FROM` and `INQUIRY_TO` remain fixed server-side addresses. The European Zoho organization uses `https://accounts.zoho.eu/oauth/v2/token` for refresh-token exchanges and `https://mail.zoho.eu/api/accounts/{accountId}/messages` for delivery. Access tokens are cached only in memory, refreshed before expiry, and retried once after an authentication failure. Both external operations have bounded timeouts, and no startup email is sent.
 
 The service fixes From to `Rito Mimarlık Web Formu <webform@ritomimarlik.com>` and To to `proje@ritomimarlik.com`. A validated visitor email becomes Reply-To; client data cannot set From, To, CC, BCC, or arbitrary headers. Single-line controls are rejected, the bounded subject component is stripped of CR/LF defensively, and all HTML values are escaped.
 
@@ -54,7 +54,7 @@ The first-stage controls are authoritative validation, the body limit, honeypot,
 
 ## Frontend states
 
-The UI implements IDLE, PENDING, SUCCESS, validation failure, rate-limit failure, and delivery failure. The submit control is disabled during PENDING. The form resets only after `202` SMTP acceptance; every failure preserves entered values. The status region announces concise Turkish results, and server field-name errors focus the first affected control where practical.
+The UI implements IDLE, PENDING, SUCCESS, validation failure, rate-limit failure, and delivery failure. The submit control is disabled during PENDING. The form resets only after `202` provider acceptance; every failure preserves entered values. The status region announces concise Turkish results, and server field-name errors focus the first affected control where practical.
 
 ## Operations and deployment boundary
 
@@ -62,12 +62,12 @@ The production Node service is installed at `/opt/rito-inquiry/current`, reads i
 
 The tested production path is:
 
-`Browser → /api/inquiry → nginx → 127.0.0.1:8787 → rito-inquiry.service → smtp.zoho.eu:465 → webform@ritomimarlik.com → proje@ritomimarlik.com`
+`Browser → /api/inquiry → nginx → 127.0.0.1:8787 → rito-inquiry.service → Zoho Mail HTTPS API → webform@ritomimarlik.com → proje@ritomimarlik.com`
 
 nginx proxies only the exact `/api/inquiry` location, replaces the forwarded client-IP header with its trusted/restored `$remote_addr`, and permits same-origin Fetch with `connect-src 'self'`. The checked-in deployment template now mirrors this verified contract. Static staging still excludes `server/`, environment files, and `node_modules`; application-service releases remain operationally separate from public static releases.
 
-The systemd service, nginx-to-Node route, SMTP authentication, and real form-message delivery are operational and have been tested successfully. The repository records no SMTP secret, sensitive provider response, or personal test address.
+The systemd service, nginx-to-Node route, Zoho API authentication, and real form-message delivery are operational and have been tested successfully. The repository records no OAuth secret, sensitive provider response, or personal test address.
 
 ## Privacy and legal boundary
 
-The established technical facts are: listed form fields are transiently received by the Node service, email is generated transiently, Zoho SMTP delivers it from `webform@` to `proje@`, no application database/local archive exists, and content-free rate-limit metadata is transient. The actual authorized people behind `proje@`, Zoho/hosting processor and transfer analysis, lawful basis, retention in recipient mailboxes/provider systems, deletion, complete notice text, Article 11 procedure, and acknowledgement/consent semantics still require factual confirmation and qualified legal review.
+The established technical facts are: listed form fields are transiently received by the Node service, email is generated transiently, the Zoho Mail API delivers it from `webform@` to `proje@`, no application database/local archive exists, and content-free rate-limit metadata is transient. The actual authorized people behind `proje@`, Zoho/hosting processor and transfer analysis, lawful basis, retention in recipient mailboxes/provider systems, deletion, complete notice text, Article 11 procedure, and acknowledgement/consent semantics still require factual confirmation and qualified legal review.
