@@ -11,6 +11,15 @@ function boolean(value, fallback, name) {
   throw new Error(`invalid_config:${name}`);
 }
 
+function allowedOrigins(env) {
+  const configured = env.INQUIRY_ALLOWED_ORIGINS !== undefined
+    ? env.INQUIRY_ALLOWED_ORIGINS
+    : env.INQUIRY_ALLOWED_ORIGIN ?? "https://ritomimarlik.com";
+  const origins = configured.split(",").map((origin) => origin.trim()).filter(Boolean);
+  if (origins.some((origin) => origin.includes("*"))) throw new Error("invalid_config:INQUIRY_ALLOWED_ORIGINS");
+  return origins;
+}
+
 export function loadConfig(env = process.env) {
   const required = ["SMTP_HOST", "SMTP_USER", "SMTP_PASSWORD", "INQUIRY_TO"];
   for (const name of required) if (!env[name]) throw new Error(`missing_config:${name}`);
@@ -24,7 +33,7 @@ export function loadConfig(env = process.env) {
   return {
     host,
     port: positiveInteger(env.INQUIRY_PORT, 8787, "INQUIRY_PORT"),
-    allowedOrigin: env.INQUIRY_ALLOWED_ORIGIN || "https://ritomimarlik.com",
+    allowedOrigins: allowedOrigins(env),
     bodyLimit: positiveInteger(env.INQUIRY_BODY_LIMIT, 24 * 1024, "INQUIRY_BODY_LIMIT"),
     rateLimitMax: positiveInteger(env.INQUIRY_RATE_LIMIT_MAX, 5, "INQUIRY_RATE_LIMIT_MAX"),
     rateLimitWindowMs: positiveInteger(env.INQUIRY_RATE_LIMIT_WINDOW_MS, 15 * 60 * 1000, "INQUIRY_RATE_LIMIT_WINDOW_MS"),

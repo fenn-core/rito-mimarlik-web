@@ -100,7 +100,7 @@ export function createInquiryServer({
       respond(response, 405, { ok: false, code: "method_not_allowed" });
       return;
     }
-    if (request.headers.origin !== config.allowedOrigin) {
+    if (!config.allowedOrigins.includes(request.headers.origin)) {
       operationalLog("origin_rejected", reference);
       respond(response, 403, { ok: false, code: "origin_not_allowed" });
       return;

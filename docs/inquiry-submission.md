@@ -31,7 +31,7 @@ Unknown top-level fields, invalid types/enums, prohibited control characters, mi
 ## HTTP contract
 
 - `POST /api/inquiry` accepts only `application/json`, with a default 24 KiB body limit.
-- The browser `Origin` must exactly match `INQUIRY_ALLOWED_ORIGIN` (default `https://ritomimarlik.com`). No permissive CORS header is emitted.
+- The browser `Origin` must exactly match one entry in the comma-separated `INQUIRY_ALLOWED_ORIGINS` allowlist. If it is unset, the service falls back to the legacy `INQUIRY_ALLOWED_ORIGIN`; if both are unset, the default is `https://ritomimarlik.com`. Entries are trimmed, empty entries are removed, and no wildcard or pattern matching is supported. No permissive CORS header is emitted.
 - Success: `202 { "ok": true, "reference": "..." }`.
 - Validation: `400 { "ok": false, "code": "invalid_submission", "fields": [...] }`.
 - Unsupported body: `415 { "ok": false, "code": "unsupported_media_type" }`.

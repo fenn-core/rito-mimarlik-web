@@ -6,7 +6,7 @@ import { validateSubmission } from "../src/schema.js";
 import { createInquiryServer } from "../src/service.js";
 
 const baseConfig = {
-  allowedOrigin: "https://ritomimarlik.com",
+  allowedOrigins: ["https://ritomimarlik.com"],
   bodyLimit: 24 * 1024,
   rateLimitMax: 5,
   rateLimitWindowMs: 60_000,
@@ -55,7 +55,7 @@ async function withServer(options, callback) {
 function post(url, body, headers = {}) {
   return fetch(`${url}/api/inquiry`, {
     method: "POST",
-    headers: { origin: baseConfig.allowedOrigin, "content-type": "application/json", ...headers },
+    headers: { origin: baseConfig.allowedOrigins[0], "content-type": "application/json", ...headers },
     body: typeof body === "string" ? body : JSON.stringify(body),
   });
 }
@@ -76,11 +76,24 @@ test("production configuration enforces loopback, fixed mailboxes, and implicit 
     INQUIRY_TO: "proje@ritomimarlik.com",
   };
   assert.equal(loadConfig(env).host, "127.0.0.1");
+  assert.deepEqual(loadConfig(env).allowedOrigins, ["https://ritomimarlik.com"]);
+  assert.deepEqual(loadConfig({ ...env, INQUIRY_ALLOWED_ORIGINS: " https://ritomimarlik.com, , http://fenn-node-01 " }).allowedOrigins, ["https://ritomimarlik.com", "http://fenn-node-01"]);
+  assert.deepEqual(loadConfig({ ...env, INQUIRY_ALLOWED_ORIGIN: "http://legacy-origin" }).allowedOrigins, ["http://legacy-origin"]);
+  assert.deepEqual(loadConfig({ ...env, INQUIRY_ALLOWED_ORIGINS: "http://preferred-origin", INQUIRY_ALLOWED_ORIGIN: "http://legacy-origin" }).allowedOrigins, ["http://preferred-origin"]);
+  assert.throws(() => loadConfig({ ...env, INQUIRY_ALLOWED_ORIGINS: "*" }), /INQUIRY_ALLOWED_ORIGINS/);
   assert.throws(() => loadConfig({ ...env, INQUIRY_HOST: "0.0.0.0" }), /INQUIRY_HOST/);
   assert.throws(() => loadConfig({ ...env, SMTP_SECURE: "false" }), /SMTP_SECURE/);
   assert.throws(() => loadConfig({ ...env, SMTP_HOST: "smtp.zoho.com" }), /SMTP_HOST/);
   assert.throws(() => loadConfig({ ...env, SMTP_USER: "personal@example.org" }), /SMTP_USER/);
   assert.throws(() => loadConfig({ ...env, INQUIRY_TO: "other@example.org" }), /INQUIRY_TO/);
+});
+
+test("temporary second allowed origin is accepted", async () => {
+  await withServer({ config: { allowedOrigins: ["https://ritomimarlik.com", "http://fenn-node-01"] } }, async ({ url }) => {
+    const response = await post(url, validSubmission(), { origin: "http://fenn-node-01" });
+    assert.equal(response.status, 202);
+    assert.equal((await response.json()).ok, true);
+  });
 });
 
 test("required fields are reported without submitted values", () => {
